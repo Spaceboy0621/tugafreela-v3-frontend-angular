@@ -1,0 +1,15 @@
+#page{
+    float: left;
+    width: 100%;
+}
+
+.loading{
+    background: rgba($color: #FFF, $alpha: 0.5);
+    z-index: 999999999;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    img{
+        margin: calc(25% - 146px) calc(50% - 123px);
+    }
+}

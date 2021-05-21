@@ -1,0 +1,21 @@
+<app-header menu="logged" [showSearch]="userLogged.type === 'Client' ? true : false"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+
+<div class="form-group col-md-4 offset-md-4 select-limit">
+    <select name="limit" id="limit" class="form-control" [(ngModel)]="limit">
+        <option value="10">Mostrar 10 primeiras</option>
+        <option value="20">Mostrar 20 primeiras</option>
+        <option value="30">Mostrar 30 primeiras</option>
+        <option value="40">Mostrar 40 primeiras</option>
+        <option value="50">Mostrar 50 primeiras</option>
+    </select>
+</div>
+<div class="all" *ngIf="ready">
+    <div class="notification-card" *ngFor="let item of notifications | slice:0:limit" (click)="goToLink(item.link)">
+        <p><b>{{item.text}}</b></p>
+        <p>{{item.job.title}}</p>
+        <hr>
+    </div>
+</div>
+
+<app-footer2 *ngIf="ready"></app-footer2>

@@ -1,0 +1,142 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    letter-spacing: -1px !important;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    background: #EFEFEF !important;
+}
+::-webkit-scrollbar  {
+    background-color: #ECECEC;
+    border-radius: 15px;
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #B383F3;
+    border-radius: 15px;
+}
+
+p {
+    word-break: break-all !important;
+}
+button {
+    border-radius: 10px solid !important;
+}
+.btn-confirm {
+    font-size: 0.9rem !important;
+    background: #d09df7 !important;
+    color: white !important;
+    padding: 2% 15% !important;
+    // font-weight: bold !important;
+}
+.btn-cancel {
+    font-size: 0.9rem !important;
+    background: red !important;
+    color: white !important;
+    padding: 2% 15% !important;
+    // font-weight: bold !important;
+}
+.text-danger {
+    color: var(--color-red)!important;
+    text-align: start !important;
+}
+
+.text-title {
+    color: #363636 !important;
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    font-stretch:expanded !important;
+}
+.text-subtitle {
+    color: #363636 !important;
+    font-size: 1.5rem !important;
+    font-weight: bold !important;
+}
+
+.text-desc {
+    color: #363636 !important;
+    font-size: 1rem !important;
+}
+.text-desc-name {
+    color: #363636 !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+}
+
+
+.tf-btn {
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    &:hover{
+        text-decoration: none;
+    }
+    &:focus{
+        outline: none;
+        box-shadow: none;
+    }
+}
+.btn-default{
+    background: #363636;
+    color: #FFF;
+    &:hover{
+        color: #FFF;
+    }
+}
+.btn-red {
+    background: #C10505;;
+    color: #FFF;
+    &:hover{
+        color: #FFF;
+    }
+}
+.btn-purple {
+    background-color: #E1B9FF;
+    margin-right: 20px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+    &:hover{
+        background-color: #d09df7;
+        color: #FFF;
+    }
+}
+
+.txt-color-purple{
+    color:#D6B8FF;
+}
+.txt-color-green{
+    color:#1ABF00;
+}
+.txt-color-yellow{
+    color:#D9D200;
+    fill: #D9D200;
+}
+.txt-color-red{
+    color:#C10505;
+    fill: #C10505 !important;
+}
+
+.no-margin-right{
+    margin-right: 0;
+}
+.no-margin-left{
+    margin-left: 0;
+}
+.no-padding-right{
+    padding-right: 0 !important;
+}
+.no-padding-left{
+    padding-left: 0 !important;
+}
+.no-padding{
+    padding: 0 !important;
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

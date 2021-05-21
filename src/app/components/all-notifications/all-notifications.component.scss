@@ -1,0 +1,17 @@
+.select-limit {
+    margin-top: 10%;
+}
+.all {
+    width: 50%;
+    margin-left: 25%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    padding: 2%;
+    background: #fff;
+    .notification-card {
+        cursor: pointer;
+        p {
+            word-break: unset !important;
+        }
+    }
+}

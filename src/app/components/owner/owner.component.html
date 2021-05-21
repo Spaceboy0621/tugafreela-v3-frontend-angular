@@ -1,0 +1,162 @@
+<app-loader *ngIf="!ready"></app-loader>
+<div *ngIf="ready">
+    <div class="owner shadow">
+        <h2 *ngIf="!details">Sobre o empregador</h2>
+        <div class="row profile">
+            <div class="col-md-4">
+                <img src={{owner.getPhoto()}} alt="" class="userPhoto" >
+            </div>
+
+            <div class="col-md-8 infos" [routerLink]="['/profile', owner.id]" >
+                <span style="cursor: pointer;">{{owner.name}}</span>
+                <svg *ngFor="let rating of averageOwnerRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105"
+                        viewBox="0 0 20.135 20.105">
+                        <path id="star"
+                            d="M19.6,7.2l-6.19-.946L10.636.349A.655.655,0,0,0,9.5.349L6.724,6.259.534,7.2A.629.629,0,0,0,.18,8.266l4.5,4.609L3.613,19.391a.63.63,0,0,0,.925.652l5.529-3.056L15.6,20.044a.63.63,0,0,0,.925-.652l-1.063-6.516,4.5-4.609A.63.63,0,0,0,19.6,7.2Z"
+                            transform="translate(0 -0.018)" fill="#FFC106" />
+                </svg>
+                <span class="average">{{owner.getMediaRating()}}</span>
+                <p *ngIf="averageOwnerRating.length === 0">Usuário não possui avaliação</p>
+                
+            </div>
+        </div>
+        <ul>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15.741" height="18.661"
+                    viewBox="0 0 19.741 23.661">
+                    <g id="user" transform="translate(0 0)">
+                        <path id="Caminho_1584" data-name="Caminho 1584"
+                            d="M92.731,11.4a5.514,5.514,0,0,0,4.03-1.67A5.514,5.514,0,0,0,98.43,5.7a5.515,5.515,0,0,0-1.67-4.029,5.7,5.7,0,0,0-8.059,0A5.514,5.514,0,0,0,87.032,5.7a5.514,5.514,0,0,0,1.67,4.03A5.515,5.515,0,0,0,92.731,11.4Zm0,0"
+                            transform="translate(-83.01)" fill="green" />
+                        <path id="Caminho_1585" data-name="Caminho 1585"
+                            d="M19.693,254.081a14.076,14.076,0,0,0-.192-1.5,11.777,11.777,0,0,0-.368-1.5,7.424,7.424,0,0,0-.618-1.4,5.29,5.29,0,0,0-.932-1.214,4.108,4.108,0,0,0-1.339-.841,4.626,4.626,0,0,0-1.709-.309,1.734,1.734,0,0,0-.926.393c-.278.181-.6.39-.965.622a5.53,5.53,0,0,1-1.248.55,4.848,4.848,0,0,1-3.054,0,5.517,5.517,0,0,1-1.248-.55c-.359-.229-.684-.439-.966-.622a1.732,1.732,0,0,0-.926-.393,4.62,4.62,0,0,0-1.709.31,4.1,4.1,0,0,0-1.339.841,5.29,5.29,0,0,0-.931,1.214,7.44,7.44,0,0,0-.618,1.4,11.808,11.808,0,0,0-.368,1.5,14.025,14.025,0,0,0-.192,1.5c-.031.453-.047.923-.047,1.4a3.929,3.929,0,0,0,1.167,2.972,4.2,4.2,0,0,0,3.007,1.1H15.567a4.2,4.2,0,0,0,3.007-1.1,3.927,3.927,0,0,0,1.167-2.973c0-.477-.016-.947-.048-1.4Zm0,0"
+                            transform="translate(0 -235.887)" fill="green" />
+                    </g>
+                </svg>
+                <span>Membro desde: {{owner.created_at | date:'MM/yyyy'}}</span>
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 24 22">
+                    <path id="Caminho_1582" data-name="Caminho 1582"
+                        d="M14.371,14.875a3,3,0,0,1-4.242,0l-4.25-4.25a3,3,0,1,1,4.242-4.242L12.25,8.511l5.877-5.877a10.943,10.943,0,1,0,3.38,5.1Zm0,0"
+                        transform="translate(0 -0.004)" fill="green" />
+                    <path id="Caminho_1583" data-name="Caminho 1583"
+                        d="M154.578,34.081a1,1,0,0,1-.707-.293l-4.25-4.25a1,1,0,0,1,1.414-1.414l3.543,3.543,10.043-10.043a1,1,0,0,1,1.414,1.414l-10.75,10.75A1,1,0,0,1,154.578,34.081Zm0,0"
+                        transform="translate(-142.328 -20.331)" fill="green" />
+                </svg>
+                <span>{{concludedProjects.length}} Projetos Concluídos</span>
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25.59" height="19.349"
+                    viewBox="0 0 31.59 23.349">
+                    <g id="credit-card_1_" data-name="credit-card (1)"
+                        transform="translate(-0.001 -64.003)">
+                        <g id="Grupo_235" data-name="Grupo 235" transform="translate(23.35 73.617)">
+                            <g id="Grupo_234" data-name="Grupo 234">
+                                <path id="Caminho_1586" data-name="Caminho 1586"
+                                    d="M364.046,213.336a1.358,1.358,0,0,0-.923.371,1.41,1.41,0,0,0-.3.411c-.008.016-.022.027-.029.044a1.33,1.33,0,0,0,0,1.1c.007.016.022.027.029.044a1.369,1.369,0,1,0,1.227-1.965Z"
+                                    transform="translate(-362.672 -213.336)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_237" data-name="Grupo 237" transform="translate(20.603 73.617)">
+                            <g id="Grupo_236" data-name="Grupo 236">
+                                <path id="Caminho_1587" data-name="Caminho 1587"
+                                    d="M321.507,215.489c-.014-.047-.032-.091-.043-.137a2.732,2.732,0,0,1-.084-.64,2.662,2.662,0,0,1,.084-.64c.011-.047.029-.091.043-.137a2.8,2.8,0,0,1,.2-.483c.011-.021.015-.044.026-.065a1.235,1.235,0,0,0-.347-.049,1.376,1.376,0,0,0-1.373,1.373,1.4,1.4,0,0,0,1.721,1.327c-.011-.021-.015-.044-.026-.065A2.641,2.641,0,0,1,321.507,215.489Z"
+                                    transform="translate(-320.007 -213.337)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_239" data-name="Grupo 239" transform="translate(5.495 64.003)">
+                            <g id="Grupo_238" data-name="Grupo 238" transform="translate(0 0)">
+                                <path id="Caminho_1588" data-name="Caminho 1588"
+                                    d="M108,64H88.774a3.438,3.438,0,0,0-3.434,3.434V72.41a2.151,2.151,0,0,1,.687-.118,2.033,2.033,0,0,1,1.954,1.361l.9,2.711h2.636a2.061,2.061,0,0,1,1.61,3.347l-1.718,2.147H108a3.438,3.438,0,0,0,3.434-3.434V67.437A3.438,3.438,0,0,0,108,64Zm-5.494,4.12h1.373a.687.687,0,1,1,0,1.373h-1.373a.687.687,0,0,1,0-1.373Zm-8.241,0h1.373a.687.687,0,0,1,0,1.373H94.267a.687.687,0,0,1,0-1.373Zm-4.807.687a.687.687,0,0,1,.687-.687h1.373a.687.687,0,1,1,0,1.373H90.147A.687.687,0,0,1,89.46,68.81Zm7.554,8.927H95.641a.687.687,0,0,1,0-1.373h1.373a.687.687,0,1,1,0,1.373Zm0-4.12H91.521a.687.687,0,1,1,0-1.373h5.494a.687.687,0,1,1,0,1.373ZM97.7,68.81a.687.687,0,0,1,.687-.687h1.373a.687.687,0,1,1,0,1.373H98.388A.687.687,0,0,1,97.7,68.81Zm6.867,8.927a2.728,2.728,0,0,1-1.372-.38,2.718,2.718,0,0,1-1.375.38,2.747,2.747,0,1,1,0-5.494,2.719,2.719,0,0,1,1.375.38,2.742,2.742,0,1,1,1.372,5.113Z"
+                                    transform="translate(-85.34 -64.003)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_241" data-name="Grupo 241" transform="translate(0.001 73.667)">
+                            <g id="Grupo_240" data-name="Grupo 240" transform="translate(0 0)">
+                                <path id="Caminho_1589" data-name="Caminho 1589"
+                                    d="M12.3,218.565a.688.688,0,0,0-.619-.39H8.05l-1.217-3.651a.714.714,0,0,0-1.3,0l-1.217,3.651H.688a.686.686,0,0,0-.537,1.115l2.526,3.156L1.4,226.913a.687.687,0,0,0,1.041.761l3.74-2.493,3.74,2.493a.687.687,0,0,0,1.041-.761l-1.276-4.466,2.526-3.155A.688.688,0,0,0,12.3,218.565Z"
+                                    transform="translate(-0.001 -214.104)" fill="green" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+
+                <span>Pagamento verificado</span>
+            </li>
+            <li>
+                <i class="fas fa-mobile-alt fa-lg" style="color: green;"></i>
+                <span>Telemóvel Verificado</span>
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg" width="23.27" height="15.534"
+                    viewBox="0 0 28.27 21.534">
+                    <g id="mail" transform="translate(0 -61)">
+                        <g id="Grupo_195" data-name="Grupo 195" transform="translate(1.42 61)">
+                            <g id="Grupo_194" data-name="Grupo 194" transform="translate(0 0)">
+                                <path id="Caminho_1578" data-name="Caminho 1578"
+                                    d="M50.086,61h-23.3a2.456,2.456,0,0,0-1.064.249l12.66,12.66,2.837-2.727h0l9.933-9.932A2.456,2.456,0,0,0,50.086,61Z"
+                                    transform="translate(-25.721 -61)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_197" data-name="Grupo 197" transform="translate(18.675 62.421)">
+                            <g id="Grupo_196" data-name="Grupo 196">
+                                <path id="Caminho_1579" data-name="Caminho 1579"
+                                    d="M347.56,86.728l-9.347,9.347,9.347,9.347a2.456,2.456,0,0,0,.249-1.064V87.792A2.455,2.455,0,0,0,347.56,86.728Z"
+                                    transform="translate(-338.213 -86.728)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_199" data-name="Grupo 199" transform="translate(0 62.42)">
+                            <g id="Grupo_198" data-name="Grupo 198" transform="translate(0 0)">
+                                <path id="Caminho_1580" data-name="Caminho 1580"
+                                    d="M.249,86.721A2.456,2.456,0,0,0,0,87.786V104.35a2.457,2.457,0,0,0,.249,1.064L9.6,96.068Z"
+                                    transform="translate(0 -86.721)" fill="green" />
+                            </g>
+                        </g>
+                        <g id="Grupo_201" data-name="Grupo 201" transform="translate(1.42 72.938)">
+                            <g id="Grupo_200" data-name="Grupo 200" transform="translate(0 0)">
+                                <path id="Caminho_1581" data-name="Caminho 1581"
+                                    d="M41.8,277.211l-2.838,2.727a.828.828,0,0,1-1.171,0l-2.727-2.727-9.347,9.347a2.457,2.457,0,0,0,1.065.249h23.3a2.456,2.456,0,0,0,1.064-.249Z"
+                                    transform="translate(-25.714 -277.211)" fill="green" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <span>{{ owner.confirmed ? 'Email verificado' : 'Email não verificado' }}</span>
+            </li>
+        </ul>
+
+        <div class="info" *ngIf="!closed">
+            <div class="row">
+                <div class="col-md-3 no-padding-right">
+                    <div class="tenders">
+                        <h3>{{proposals.length}}</h3>
+                        <p>Propostas</p>
+                    </div>
+                </div>
+                <div class="col-md-6 padding-5">
+                    <div class="value">
+                        <h3>{{averageValue | currency: 'BRL':'symbol'}}</h3>
+                        <p>Valor Médio (Proposta)</p>
+                    </div>
+                </div>
+                <div class="col-md-3 no-padding-left">
+                    <div class="tenders" *ngIf="userLogged.type === 'Freelancer'">
+                        <div>
+                            <i class="fas fa-save fa-2x"></i>
+                        </div>
+                        <p>Salvar Job</p>
+                    </div>
+                    <div class="tenders" *ngIf="userLogged.type === 'Cliente'">
+                        <h3>{{jobDetails.getTimeProjectDays()}}</h3>
+                        <p>Ativo à (dias)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="send-message">
+            <p>Tem dúvidas? Envie uma mensagem para o cliente</p>
+            <p>Enviar mensagem</p>
+        </div> -->
+    </div>
+</div>

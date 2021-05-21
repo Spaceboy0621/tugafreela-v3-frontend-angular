@@ -1,0 +1,61 @@
+h2 {
+  font-size: 1.5rem;
+  color: #363636;
+  font-weight: 600;
+  margin-top: 5%;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+.card-verify {
+  word-break: normal;
+  text-align: center;
+  padding: 2%;
+  width: 30%;
+  border-radius: 10px;
+  margin-left: 2%;
+  .img {
+    margin-bottom: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .sub-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  .sub-card {
+    border-radius: 10px;
+    background: #EFEFEF;
+    padding: 10% 5%;
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 100px;
+        height: 50px;
+      }
+      .paypal {
+        height: 40px;
+      }
+    }
+    button {
+      margin-top: 5%;
+      padding: 4% 1%;
+      font-size: 0.8rem;
+      color: white;
+      background: #D6B8FF;
+    }
+    
+  } 
+  
+}

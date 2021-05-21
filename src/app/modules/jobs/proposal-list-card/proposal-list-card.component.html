@@ -1,0 +1,108 @@
+<div class="proposal row">
+  <div class="col-md-1">
+    <img src={{proposal.freelancer.getPhoto()}} alt="" class="img-fluid userPhoto">
+  </div>
+
+  <div class="col-md-8 infos">
+      <div class="row">
+          <h3 class="text-desc-name">{{proposal.freelancer.name}} &nbsp;</h3>
+              <svg *ngFor="let i of proposal.freelancer.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 20.135 20.105">
+                  <path id="star" d="M19.6,7.2l-6.19-.946L10.636.349A.655.655,0,0,0,9.5.349L6.724,6.259.534,7.2A.629.629,0,0,0,.18,8.266l4.5,4.609L3.613,19.391a.63.63,0,0,0,.925.652l5.529-3.056L15.6,20.044a.63.63,0,0,0,.925-.652l-1.063-6.516,4.5-4.609A.63.63,0,0,0,19.6,7.2Z" transform="translate(0 -0.018)" fill="#FFC107"/>
+              </svg>
+      </div>
+      
+      <div class="row">
+        <div>
+          <span>Submetido: {{proposal.created_at | date:'dd/MM/yyyy'}} às {{proposal.created_at | date:'HH:mm'}} | </span>
+          <span *ngIf="proposal.job.type === 'Hora'">Valor/h: {{proposal.value/proposal.term}} | Horas: {{proposal.term}} | </span>
+          <span>Total: {{proposal.value}} | </span>
+          <span *ngIf="proposal.job.type === 'Fixo'">Tempo: {{proposal.term}} dias | </span>
+        </div>        
+      </div>
+
+      <div class="row description" *ngIf="proposalExpanded">
+        {{proposal.description}}
+      </div> 
+
+      <div class="row">
+        <a 
+          class="expand-proposal" 
+          (click)="proposalExpanded = !proposalExpanded"
+          *ngIf="proposalExpanded"
+        >
+          Esconder descrição
+        </a>
+        <a 
+            class="expand-proposal" 
+            (click)="proposalExpanded = !proposalExpanded"
+            *ngIf="!proposalExpanded"
+        >
+            Mostrar descrição
+        </a>
+      </div>
+      
+  </div>
+
+  <div class="col-md-2 status" [ngStyle]="{'background': proposal.color}">
+      {{proposal.status}}
+  </div>
+
+  <div class="col-md-1 open-actions-div" *ngIf="userLogged.id === job.owner.id">
+      <svg [id]="'svg' + index" xmlns="http://www.w3.org/2000/svg" width="6" height="30" viewBox="0 0 9 35" style="float: right; cursor: pointer" (click)="showActionsJob = !showActionsJob">
+        <circle [id]="'circle1' + index" id="Elipse_145" data-name="Elipse 145" cx="4.5" cy="4.5" r="4.5" fill="#363636"/>
+        <circle [id]="'circle2' + index" id="Elipse_146" data-name="Elipse 146" cx="4.5" cy="4.5" r="4.5" transform="translate(0 13)" fill="#363636"/>
+        <circle [id]="'circle3' + index" id="Elipse_147" data-name="Elipse 147" cx="4.5" cy="4.5" r="4.5" transform="translate(0 26)" fill="#363636"/>
+      </svg>
+
+      <ul class="actions" [hidden]="!showActionsJob" *ngIf="userLogged.id === job.owner.id" [id]="'ul' + index">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="25" viewBox="0 0 19 25" class="arrow">
+          <path id="Polígono_2" data-name="Polígono 2" d="M12.5,0,25,19H0Z" transform="translate(19) rotate(90)" fill="#363636"/>
+        </svg>                              
+        <li (click)="contactFreelancer()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20.785" height="17.356" viewBox="0 0 22.785 17.356">
+            <g id="mail" transform="translate(0 -61)">
+              <g id="Grupo_195" data-name="Grupo 195" transform="translate(1.145 61)">
+                <g id="Grupo_194" data-name="Grupo 194" transform="translate(0 0)">
+                  <path id="Caminho_1578" data-name="Caminho 1578" d="M45.359,61H26.579a1.979,1.979,0,0,0-.858.2l10.2,10.2,2.287-2.2h0l8.005-8A1.979,1.979,0,0,0,45.359,61Z" transform="translate(-25.721 -61)" fill="#d6b8ff"/>
+                </g>
+              </g>
+              <g id="Grupo_197" data-name="Grupo 197" transform="translate(15.051 62.145)">
+                <g id="Grupo_196" data-name="Grupo 196">
+                  <path id="Caminho_1579" data-name="Caminho 1579" d="M345.746,86.728l-7.534,7.533,7.533,7.533a1.98,1.98,0,0,0,.2-.858V87.586A1.979,1.979,0,0,0,345.746,86.728Z" transform="translate(-338.213 -86.728)" fill="#d6b8ff"/>
+                </g>
+              </g>
+              <g id="Grupo_199" data-name="Grupo 199" transform="translate(0 62.145)">
+                <g id="Grupo_198" data-name="Grupo 198" transform="translate(0 0)">
+                  <path id="Caminho_1580" data-name="Caminho 1580" d="M.2,86.721a1.979,1.979,0,0,0-.2.858V100.93a1.98,1.98,0,0,0,.2.858l7.533-7.533Z" transform="translate(0 -86.721)" fill="#d6b8ff"/>
+                </g>
+              </g>
+              <g id="Grupo_201" data-name="Grupo 201" transform="translate(1.144 70.622)">
+                <g id="Grupo_200" data-name="Grupo 200" transform="translate(0 0)">
+                  <path id="Caminho_1581" data-name="Caminho 1581" d="M38.677,277.211l-2.287,2.2a.667.667,0,0,1-.944,0l-2.2-2.2-7.534,7.533a1.98,1.98,0,0,0,.858.2h18.78a1.979,1.979,0,0,0,.858-.2Z" transform="translate(-25.714 -277.211)" fill="#d6b8ff"/>
+                </g>
+              </g>
+            </g>
+          </svg>                                                                                                
+          <span>Contatar Feelancer</span>
+        </li>
+        <li (click)="acceptProposal(proposal)" *ngIf="proposal.status === 'Aberta'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 24 22">
+            <g id="checkmark_1_" data-name="checkmark (1)" transform="translate(0 -0.004)">
+              <path id="Caminho_1582" data-name="Caminho 1582" d="M14.371,14.875a3,3,0,0,1-4.242,0l-4.25-4.25a3,3,0,1,1,4.242-4.242L12.25,8.511l5.877-5.877a10.943,10.943,0,1,0,3.38,5.1Zm0,0" fill="#d6b8ff"/>
+              <path id="Caminho_1583" data-name="Caminho 1583" d="M154.578,34.081a1,1,0,0,1-.707-.293l-4.25-4.25a1,1,0,0,1,1.414-1.414l3.543,3.543,10.043-10.043a1,1,0,0,1,1.414,1.414l-10.75,10.75A1,1,0,0,1,154.578,34.081Zm0,0" transform="translate(-142.328 -20.327)" fill="#d6b8ff"/>
+            </g>
+          </svg>                                                               
+                                                                    
+          <span>Aceitar Proposta</span>
+        </li>
+        <li (click)="rejectProposal(proposal)" *ngIf="proposal.status === 'Aberta'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20.379" height="25.379" viewBox="0 0 22.379 22.379">
+              <path id="disabled" d="M11.189,0A11.189,11.189,0,1,0,22.379,11.189,11.2,11.2,0,0,0,11.189,0ZM2.8,11.189A8.337,8.337,0,0,1,4.357,6.335L16.044,18.022A8.379,8.379,0,0,1,2.8,11.189Zm15.225,4.855L6.334,4.357A8.379,8.379,0,0,1,18.022,16.044Z" fill="#d6b8ff"/>
+            </svg> 
+          <span>Rejeitar Proposta</span>
+        </li>
+      </ul>
+  </div>
+  
+
+</div>

@@ -1,0 +1,122 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Adicionar Cartão de Crédito</h2>
+  <div class="row">
+      <div class="form-group col-md-3">
+          <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="type_card" id="credito" value="credito" formControlName="type_card" checked>
+              <label for="credito" class="form-check-label">Crédito</label>
+          </div>
+      </div>
+      <div class="form-group col-md-3">
+          <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input" name="type_card" id="debito" value="debito" formControlName="type_card">
+              <label for="debito" class="form-check-label">Débito</label>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="percentage_client">Dê um apelido para o cartão</label>
+      <input
+          type="text"
+          name="surname"
+          id="surname"
+          class="form-control"
+          formControlName="surname"
+          placeholder="Ex: Cartão Mastercard Principal"
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-3">
+      <label for="percentage_client">Nome no cartão</label>
+      <input
+          type="text"
+          name="name_on_the_card"
+          id="name_on_the_card"
+          class="form-control"
+          formControlName="name_on_the_card"
+      >
+  </div>
+  <div class="form-group col-md-3">
+    <label for="percentage_client">País</label>
+    <select class="form-control" formControlName="country">
+      <option *ngFor="let item of countries" [value]="item.nome_pais">{{item.nome_pais}}</option>
+    </select>
+  </div>
+</div>
+
+  <div class="row">
+    <div class="form-group col-md-4">
+      <label for="percentage_client">Número do cartão</label>
+      <input
+          type="text"
+          name="number"
+          id="number"
+          class="form-control"
+          formControlName="number"
+          placeholder="Apenas números"
+          (focusout)="validateCardNumber()"
+          [ngModel]="this.form.value.number"
+      >
+      <span class="text-danger" *ngIf="numberInvalid">Cartão inválido</span>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="percentage_client">CVV</label>
+      <input
+          type="text"
+          name="cvv"
+          id="cvv"
+          class="form-control"
+          formControlName="cvv"
+          (focusout)="validateCVV()"
+          placeholder="CVV"
+      >
+      <span class="text-danger" *ngIf="cvvInvalid">Código inválido</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="col-md-12">Validade</label>
+      <div class="form-group col-md-3">
+          <label for="expiration_date_month">Mês</label>
+          <input
+            type="text"
+            name="expiration_date_month"
+            id="expiration_date_month"
+            class="form-control"
+            placeholder="Ex: 08"
+            formControlName="expiration_date_month"
+            minlength="2"
+            maxlength="2"
+          >
+          <span 
+            class="text-danger" 
+            *ngIf="!this.form.controls.expiration_date_month.valid"
+          >Mês inválido</span>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="expiration_date_year">Ano</label>
+        <input
+          type="text"
+          name="expiration_date_year"
+          id="expiration_date_year"
+          class="form-control"
+          placeholder="Ex: 2020"
+          formControlName="expiration_date_year"
+          minlength="4"
+          maxlength="4"
+        >
+        <span 
+            class="text-danger" 
+            *ngIf="!this.form.controls.expiration_date_year.valid"
+          >Ano inválido</span>
+      </div>
+  </div>
+
+  <div class="row actions">
+    <button type="button" class="btn cancel" (click)="cancel()">Cancelar</button>
+    <button type="submit" class="btn save">Salvar</button>
+  </div>
+</form>

@@ -1,0 +1,144 @@
+.freela{
+    padding: 20px 20px 9px;
+    border-radius: 10px;
+    background: #FFF;
+    float: left;
+    width: 100%;
+    
+    a {
+        float: left;
+        width: 100%;
+        color: #FFF;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 10px;
+    }
+
+    h2{
+        float: left;
+        width: 100%;
+        font-size: 22px;
+        font-weight: 500;
+        color: #363636;
+    }
+    .profile{
+        float: left;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        span{
+            float: left;
+            width: 100%;
+            margin-top: 3px;
+        }
+    }
+
+    ul{
+        list-style: none;
+        float: left;
+        width: 100%;
+        padding: 0;
+        li {
+            float: left;
+            width: 100%;
+            padding: 5px 0;
+            font-size: 14px;
+            font-weight: 300;
+            color: #363636;
+            span{
+                width: 85%;
+                float: right;
+            }
+            svg{
+                margin-top: 2px;
+                float: left;
+            }
+        }
+    }
+
+    .info{
+        .tenders{
+            background-color: #E1B9FF;
+            border-radius: 5px;
+            color: #363636;
+            padding: 10px 0;
+            float: left;
+            width: 100%;
+            h3{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-size: 25px;
+                font-weight: 500;
+                text-align: center;
+            }
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-size: 10px;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+        .padding-5{
+            padding: 0 5px;
+        }
+        .value{
+            background-color: #363636;
+            border-radius: 5px;
+            padding: 12.6px 0;
+            float: left;
+            width: 100%;
+            h3{
+                margin: 0;
+                float: left;
+                width: 100%;
+                color: #FFF;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: center;
+            }
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                color: #FFF;
+                font-size: 10px;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+        
+        button{
+            background-color: #E1B9FF;
+            border-radius: 5px;
+            color: #363636;
+            padding: 12.5px 0;
+            font-size: 12px;
+            border: none;
+            float: left;
+            width: 100%;
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+    }
+
+    .message{
+        margin: 0;
+        float: left;
+        width: 100%;
+        margin: 10px 0;
+        font-size: 14px;
+        color: #363636;
+        font-weight: 500;
+        span{
+            cursor: pointer;
+        }
+    }
+}

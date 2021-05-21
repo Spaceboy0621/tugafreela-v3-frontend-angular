@@ -1,0 +1,18 @@
+<div class="bg row">
+  <div class="modal-confirm col-sm-10 col-md-6">
+    <div class="title">{{title}}</div>
+
+    <div class="text">{{text}}</div>
+
+    <div class="sub-text">{{text2}}</div>
+    <div class="img" *ngIf="imgName !== ''">
+      <img [src]="'../../../assets/img/' + imgName + '.png'" alt="">
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-confirm" (click)="sendChoose('confirm')" *ngIf="textConfirm !== ''">{{textConfirm}}</button>
+      <button class="btn btn-cancel" (click)="sendChoose('hide')" *ngIf="textCancel !== ''">{{textCancel}}</button>
+    </div>
+
+  </div>
+</div>

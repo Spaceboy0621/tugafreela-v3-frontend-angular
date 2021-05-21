@@ -1,0 +1,26 @@
+<app-header menu="none"></app-header>
+<section id="login">
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-md-5">
+                <div class="card">
+                    <h2>Login</h2>
+                    <p>Novo aqui? <a class="txt-color-purple" routerLink="/signup">Criar uma conta agora</a></p>
+                    <span class="txt-color-red">{{msgError}}</span>
+                    <form [formGroup]="formLogin" (ngSubmit)="login()">
+                        <input type="email" name="email" placeholder="E-mail" formControlName="identifier">
+                        <input type="password" name="password" placeholder="Digite sua senha" formControlName="password">
+                        <p>Esqueceu sua senha? <a href="" routerLink="/password/recovery">Recuperar</a></p>
+                        <button class="tf-btn btn-purple" type="submit">Entrar</button>
+
+                        <div class="social">
+                            <!-- <span>Entrar com</span> -->
+                        </div>
+                    </form>
+                </div>
+                <p>Ao continuar, confirmo que aceito os termos de serviço e as diretrizes da comunidade do TugaFreelas e li a política de privacidade.</p>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,327 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!job || !ready"></app-loader>
+<div class="my-alert" *ngIf="showAlert && ready">
+    <p *ngIf="userLogged.id === job.owner.id"> <b>ATENÇÃO: &nbsp; </b>&nbsp; {{alertTextClient}} </p>
+
+    <p *ngIf="userLogged.id === job.freelancer.id"> <b>ATENÇÃO: &nbsp; </b>&nbsp; {{alertTextFreela}} </p>
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="showAlert = false">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<section id="jobDetails" *ngIf="job && ready">
+    <div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="job shadow">
+                    <div class="editJob" [routerLink]="['/job/', job.id, 'edit-job']" >Editar</div>
+                    <h2 class="text-title">{{ job.title }}</h2>
+                    <span class="text-black">Descrição do job:</span>
+                    <p class="text-desc">
+                        <br>
+                        {{ job.description }}
+                    </p>
+                    <div class="skills">
+                        <h3 class="text-subtitle">Habilidades necessárias:</h3>
+                        <span *ngFor="let skill of job.skills">{{ skill.name }}</span>
+                    </div>
+                    <div class="type">
+                        <p *ngIf="job.type === 'Hora'">Projeto por hora</p>
+                        <p *ngIf="job.type !== 'Hora'">Projeto valor fixo</p>
+                        <div class="row" *ngIf="job.type === 'Hora'">
+                            <div class="col-md-3 type-span">
+                                {{job.hours}} horas
+                            </div>
+                            <div class="col-md-3 type-span">
+                                {{job.valueHour | currency:'EUR':true}}/h
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 type-span">
+                                {{job.type === 'Hora' ? 'Total : ' : ''}} {{job.valueJob | currency:'EUR':true}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+
+                <!--Opção comprar destaque -->
+                <div class="buy-featured" *ngIf="job.status === 'ativo' && userLogged.type === 'Cliente' && userLogged.id === job.owner.id && !job.featured">
+                    <div class="subs-card">
+                        <div class="title">
+                          <img src="../../../../assets/img/icons/award.svg">
+                          <p><b>Obtenha o máximo do seu projeto</b></p>
+                        </div>
+                        <div class="content">
+                          Que tal fazer um upgrade no seu projeto para que ele se destaque de todos os outros
+                        </div>
+                        <div class="actions">
+                          <button class="btn" (click)="showFeatureUrgent = true">Destacar Projeto</button>
+                        </div>
+                      </div>
+                </div>
+                   
+                <!-- Status do projeto -->
+                <div *ngIf="userLogged.id === job.owner.id || (job.freelancer && userLogged.id === job.freelancer.id)" class="statusJob" [ngStyle]="{'background': statusColor}">
+                    {{statusToShow | titlecase}}
+                </div>
+                
+                <!-- Botões para ir para avaliação -->
+                <div 
+                    *ngIf="job.freelancer && userLogged.id === job.freelancer.id && (job.status === 'concluido' || job.status === 'fechado_a_favor_do_freelancer' || job.status === 'fechado_a_favor_do_cliente' || job.status === 'fechado_em_divisao') && !job.freela_rated" 
+                    class="freelaRateClient" 
+                    (click)="rate()"
+                >Avaliar Cliente</div>
+
+                <div 
+                    *ngIf="job.owner && userLogged.id === job.owner.id && (job.status === 'concluido' || job.status === 'fechado_a_favor_do_freelancer' || job.status === 'fechado_a_favor_do_cliente' || job.status === 'fechado_em_divisao' || job.status === 'fechado_pelo_freelancer') && !job.client_rated" 
+                    class="clientRateFreela" 
+                    (click)="rate()"
+                >Avaliar Freelancer</div>
+
+                <!-- Opções do job para freelas e clientes -->
+
+                <!-- Fazer Proposta / pergunta -->
+
+                <div class="proposal-question" *ngIf="job.status === 'ativo' && !alreadySentProposal && userLogged.type === 'Freelancer'">
+                    <button class="btn btn-block btn-send-proposal">FAÇA SUA PROPOSTA</button>
+                    <button class="btn btn-block btn-send-question">FAÇA UMA PERGUNTA</button>
+                </div>
+                <!-- Disputa -->
+
+                <div class="see-dispute" *ngIf="job.status === 'em_disputa' && (job.owner.id === userLogged.id || job.freelancer.id === userLogged.id)">
+                    <button class="btn btn-block btn-dispute" [routerLink]="['/dispute', job.dispute.id]" routerLinkActive="router-link-active" >Ver Disputa</button>
+                </div>
+                <!-- Opções Freela que enviou proposta para o job -->
+                <div 
+                    *ngIf="userLogged.type === 'Freelancer' && alreadySentProposal && job.status === 'ativo'"
+                    class="proposalOptionsFreela"    
+                >
+                    <button class="btn btn-block btn-confirm" (click)="editProposal()">Melhorar Proposta</button>
+                    <button class="btn btn-block btn-cancel" (click)="showModalCancelProposal = true">Cancelar Proposta</button>
+                </div>
+                
+                <!-- Concluir job como freeela -->
+                <div 
+                    *ngIf="job.freelancer && userLogged.id === job.freelancer.id && job.status === 'em_andamento'" 
+                    class="concludeJobFreela" 
+                    (click)="showModalConcludeJob = true"
+                >Concluir Projeto</div>
+                
+                <!-- Opções projeto em andamento para o freeela -->
+                <div class="inprogress-freela" *ngIf="job.freelancer && userLogged.id === job.freelancer.id">
+                    <span *ngIf="job.status === 'em_andamento' && job.type === 'Fixo'"  class="increaseDeadlineFreela" (click)="showModalNewDeadlineFreela = true">Novo prazo</span>
+                    <span *ngIf="job.status === 'em_andamento'" class="cancelProjectFreela" (click)="showModalCloseProject = true">Fechar Projeto</span>
+                    <span *ngIf="job.status === 'em_andamento' && job.type === 'Hora'" class="pauseProject" (click)="pauseProjectFreela()">Pausar Projeto</span>
+                    
+                </div>
+                
+                <!-- Opções projeto em andamento para o cleinte -->
+                <div class="inprogress-client" *ngIf="userLogged.id === job.owner.id">
+                    <!-- <span *ngIf="job.status === 'em_andamento' && daysTotalProject >= 3" class="cancelProjectClient" (click)="showModalCloseProject = true">Fechar Projeto</span> -->
+                    <span
+                        *ngIf="job.status === 'solicitado_novo_prazo'" 
+                        class="seeNewDeadline" 
+                        (click)="showModalNewDeadlineClient = true"
+                    >Avaliar novo prazo solicitado</span>
+                    <span 
+                        *ngIf="job.status === 'concluido_pelo_freelancer'"
+                        class="concludeJobClient"
+                        (click)="concludeJobClient()"
+                    >Concluir Projeto</span>
+                    <span 
+                        *ngIf="job.status === 'concluido_pelo_freelancer'"
+                        class="startDispute"
+                        (click)="showModalStartDispute = true"
+                    >Iniciar Disputa</span>
+                </div>
+
+                <div class="wait-payment-client" *ngIf="userLogged.id === job.owner.id && job.status === 'aguardando_pagamento'">
+                    <span
+                        class="pay" 
+                        (click)="pay()"
+                    >Pagar</span>
+                </div>
+
+                <!-- card do owner do projeto -->
+                <div>
+                    <app-owner [details]=true></app-owner>
+                </div>
+            </div>
+     
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <!--Outras propostas -->
+                <div class="other-proposals shadow" >
+                    <h2 class="text-subtitle" *ngIf="userLogged.type === 'Cliente'">Propostas</h2>
+                    <h2 class="text-subtitle" *ngIf="userLogged.type === 'Freelancer'">Propostas</h2>
+                    <app-proposal-list-card *ngFor="let item of job.proposals; let i = index" [job]="job" [proposal]="item" [index]="i"></app-proposal-list-card>
+                </div>
+
+                <!--Feedbacks -->
+                <div class="feedbacks shadow" *ngIf="userLogged.id !== job.owner.id">
+                    <h2 class="text-subtitle">Feedback dos freelancers</h2>
+                    <div class="feedback row" *ngFor="let item of job.owner.ratings">
+                        <div class="col-md-1">
+                            <img src={{item.valuer.getPhoto()}} alt="" class="img-fluid userPhoto">
+                        </div>
+
+                        <div class="col-md-8 infos">
+                            <div class="row">
+                                <h3 class="text-desc-name">{{item.valuer.name}} &nbsp;</h3>
+                                <svg *ngFor="let i of item.valuer.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 20.135 20.105">
+                                    <path id="star" d="M19.6,7.2l-6.19-.946L10.636.349A.655.655,0,0,0,9.5.349L6.724,6.259.534,7.2A.629.629,0,0,0,.18,8.266l4.5,4.609L3.613,19.391a.63.63,0,0,0,.925.652l5.529-3.056L15.6,20.044a.63.63,0,0,0,.925-.652l-1.063-6.516,4.5-4.609A.63.63,0,0,0,19.6,7.2Z" transform="translate(0 -0.018)" fill="#FFC107"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="row">
+                                <p>{{item.comment}}</p> 
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-2 rating">
+                            <svg *ngFor="let i of item.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 31.477 31.43">
+                                <path id="star" d="M30.641,11.252,20.965,9.774,16.628.536a1.024,1.024,0,0,0-1.78,0L10.512,9.774.835,11.252a.983.983,0,0,0-.555,1.659l7.03,7.206L5.649,30.3A.984.984,0,0,0,7.1,31.323l8.643-4.777,8.643,4.778A.984.984,0,0,0,25.828,30.3L24.166,20.118l7.03-7.205a.984.984,0,0,0-.555-1.66Z" transform="translate(0 -0.018)" fill="#ffc107"/>
+                            </svg>
+                        </div> -->
+                    </div>
+                </div> <!-- /.feedbacks-->
+
+                <!--Outros jobs -->
+
+                <div class="others-jobs shadow" *ngIf="userLogged.id !== job.owner.id">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-subtitle">Outros jobs publicados por <span class="txt-color-purple">{{ job.owner.name }}</span></h2>
+                            <div class="item" *ngFor="let job of ownerJobs">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3 class="text-desc-name">{{job.title}}</h3>
+                                        <p>{{job.description}}</p>
+                                    </div>
+                                    <div class="col-md-3 offset-md-1">
+                                        <a class="tf-btn btn-default" target="_blank" [routerLink]="['/job', job.id]" routerLinkActive="router-link-active" >
+                                            VER JOB COMPLETO
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.about-me-->
+            </div>
+        </div>
+
+        <div class="row" *ngIf="job.status === 'em_andamento' || job.status === 'concluido_pelo_freelancer' || job.status === 'solicitado_novo_prazo'">
+            <div class="col-md-4 offset-md-8">
+                <div class="modal-default">
+                    <div class="title">
+                        {{job.created_at | date}} - {{job.deadline | date}}
+                    </div>
+                    <div class="content" *ngIf="job.type !== 'Hora'">
+                        <p><b>Tempo total de projeto</b></p>
+                        <p>{{daysTotalProject}} {{daysTotalProject === 1 ? 'dia' : 'dias'}}</p>
+                        <p><b>Tempo restante de projeto</b></p>
+                        <p>{{deadlineLeft}} {{deadlineLeft === 1 ? 'dia' : 'dias'}}</p>
+                    </div>
+                    <div class="content" *ngIf="job.type === 'Hora'">
+                        <p><b>Tempo total de projeto</b></p>
+                        <p>{{job.hours}} horas</p>
+                        <p><b>Tempo restante de projeto</b></p>
+                        <p>{{deadlineLeftHours}} horas</p>
+                        <p><b>Rodada ({{actualRound === 0 ? 1 : actualRound}} / {{totalRounds}})</b></p>
+                        <p><b>Rodada termina em:</b> {{nextRound}} horas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+</section>
+
+
+<app-footer2 *ngIf="ready"></app-footer2>
+
+<app-modal-new-deadline
+    *ngIf="ready && showModalNewDeadlineFreela && userLogged.type === 'Freelancer'"
+    title="Solicitar Novo Prazo"
+    type="request"
+    (sendNewDeadlineEvent)="responseModalDeadline($event)"
+>
+</app-modal-new-deadline>
+
+<app-modal-new-deadline
+    *ngIf="ready && (showModalNewDeadlineClient || job.status === 'solicitado_novo_prazo') && userLogged.type === 'Cliente' && userLogged.id === job.owner.id"
+    title="Novo prazo foi solicitado pelo freelancer"
+    type="response"
+    (acceptOrRejectEvent)="responseModalDeadline($event)"
+>
+</app-modal-new-deadline>
+
+<app-modal-confirm 
+    title="Concluir Projeto"
+    textConfirm="Concluir"
+    textCancel="Cancelar"
+    imgName="confirm"
+    *ngIf="showModalConcludeJob"
+    [display]="showModalConcludeJob"
+    (sendChooseEvent)="responseModal($event, 'conclude')"
+></app-modal-confirm>
+
+<app-modal-confirm 
+    title="Iniciar Disputa"
+    textConfirm="Inciar"
+    textCancel="Cancelar"
+    imgName="dispute"
+    *ngIf="showModalStartDispute"
+    (sendChooseEvent)="responseModal($event, 'dispute')"
+></app-modal-confirm>
+
+<app-modal-confirm 
+    title="Fechar Projeto"
+    textConfirm="Fechar"
+    textCancel="Cancelar"
+    imgName="block"
+    *ngIf="showModalCloseProject"
+    (sendChooseEvent)="responseModal($event, 'close')"
+></app-modal-confirm>
+
+<app-modal-confirm 
+    title="Cencelar Proposta"
+    textConfirm="Cancelar Proposta"
+    textCancel="Cancelar"
+    imgName="block"
+    *ngIf="showModalCancelProposal"
+    (sendChooseEvent)="responseModal($event, 'cancelProposal')"
+></app-modal-confirm>
+
+<app-modal-confirm 
+    title="Pausar Projeto"
+    text="O projeto poderá ser pausado por no máximo {{pauseLimit}} horas"
+    textConfirm="Pausar"
+    textCancel="Cancelar"
+    imgName="pause"
+    *ngIf="showModalPauseProject"
+    (sendChooseEvent)="responseModal($event, 'pause')"
+></app-modal-confirm>
+
+<app-modal-confirm 
+    title="Projeto Pausado"
+    text="Tempo restante da pausa: {{((job.hours >= 24 ? 24 : job.hours)) - job.getPausedTimeHours()}} horas"
+    textConfirm="Retomar Projeto"
+    imgName="pause"
+    *ngIf="ready && job.status === 'pausado'"
+    (sendChooseEvent)="responseModal($event, 'unpause')"
+></app-modal-confirm>
+
+<app-select-type-project *ngIf="showFeatureUrgent" (eventType)="getEventTypeJob($event)"></app-select-type-project>
+

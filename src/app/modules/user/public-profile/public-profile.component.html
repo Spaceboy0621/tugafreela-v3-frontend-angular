@@ -1,0 +1,88 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="publicProfile" *ngIf="ready">
+    <div class="container">
+        <div class="row" *ngIf="user">
+            <div class="col-md-8">
+                <div class="profile">
+                    <div class="resume">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img src="{{ user.getPhoto() }}" alt="" class="img-fluid">
+                            </div>
+
+                            <div class="col-md-10 no-padding-left">
+                                <h2>{{ user.name }}</h2>
+                                <p>{{ user.professional_description }}</p>
+                                <ngb-rating [rate]="user.getMediaRating()" [max]="5" [readonly]="true"></ngb-rating>                           
+                                <span>[{{ user.getMediaRating() }} - {{ user.ratings?.length }} avaliações]</span>
+                                <div class="skills">
+                                    <span *ngFor="let skill of user.skills.slice(0, 3);">{{ skill.name }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedbacks">
+                        <h2>Feedbacks dos clientes</h2>
+                        <div class="feedback" *ngFor="let item of feedbacks">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="assets/img/profile.png" alt="" class="img-fluid">
+                                </div>
+    
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <h3>{{item.job.title}}</h3>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-9 no-padding-left">
+                                            <p>{{item.comment}}</p>
+                                            <span>{{item.user.name}}</span>
+                                            <svg *ngFor="let i of item.user.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 20.135 20.105">
+                                                <path id="star" d="M19.6,7.2l-6.19-.946L10.636.349A.655.655,0,0,0,9.5.349L6.724,6.259.534,7.2A.629.629,0,0,0,.18,8.266l4.5,4.609L3.613,19.391a.63.63,0,0,0,.925.652l5.529-3.056L15.6,20.044a.63.63,0,0,0,.925-.652l-1.063-6.516,4.5-4.609A.63.63,0,0,0,19.6,7.2Z" transform="translate(0 -0.018)" fill="#d6b8ff"/>
+                                            </svg>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span>{{item.rating}}</span>
+                                            <svg *ngFor="let i of item.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 31.477 31.43">
+                                                <path id="star" d="M30.641,11.252,20.965,9.774,16.628.536a1.024,1.024,0,0,0-1.78,0L10.512,9.774.835,11.252a.983.983,0,0,0-.555,1.659l7.03,7.206L5.649,30.3A.984.984,0,0,0,7.1,31.323l8.643-4.777,8.643,4.778A.984.984,0,0,0,25.828,30.3L24.166,20.118l7.03-7.205a.984.984,0,0,0-.555-1.66Z" transform="translate(0 -0.018)" fill="#ffc107"/>
+                                            </svg>
+                                            <p class="date">{{item.created_at | date}}</p> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.feedbacks-->
+
+                    <div class="about-me">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Sobre o profissional</h2>
+                                <p>{{ user.about }}</p>
+                                <p>Trabalho com:</p>
+                                <ul>
+                                    <li *ngFor="let skiil of user.skills">- {{ skiil.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- /.about-me-->
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="info-add">
+                    <h2>Informações Adicionais</h2>
+                    <ul>
+                        <li>Projetos finalizados: {{jobsConcluded.length}}</li>
+                        <li>Projetos em execução: {{jobsActive.length}}</li>
+                        <li>Classificação dos clientes: {{user.getMediaRating()}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,14 @@
+<ul>
+    <!-- <li *ngFor="let item of listCategories">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Todas as categorias</label>
+        </div>
+    </li> -->
+    <li *ngFor="let item of listCategories">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="categoryCheckbox{{ item.id }}" (click)="select(item)" #checkboxes>
+            <label class="form-check-label" for="categoryCheckbox{{ item.id }}">{{ item.name }}</label>
+        </div>
+    </li>
+</ul>

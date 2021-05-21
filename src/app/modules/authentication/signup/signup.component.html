@@ -1,0 +1,105 @@
+<app-header></app-header>
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <h2 style="display: flex; justify-content: flex-start; align-items: center;">
+                <i class="fas fa-chevron-left" style="cursor: pointer;" (click)="step = 1" *ngIf="step === 2"></i>
+                <span style="margin-left: 10%;">Bem-vindo ao TugaFreela</span>
+            </h2>
+            <form [formGroup]="formUser" (ngSubmit)="newUser()">
+                <div class="row justify-content-center" *ngIf="step === 1">
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="type" id="client" value="Cliente" formControlName="type">
+                            <label for="client" class="form-check-label">Cliente</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="type" id="freela" value="Freelancer" formControlName="type">
+                            <label for="freela" class="form-check-label">Freelancer</label>
+                        </div>
+                    </div>
+                    <br><br>
+                </div>
+                <div class="row" *ngIf="step === 1">
+
+                    <div class="col-md-6">
+                        <input type="text" name="name" class="form-singup" placeholder="Nome" formControlName="name">
+                    </div>
+
+                    <div class="col-md-6">
+                        <input type="text" name="nick" class="form-singup" placeholder="Apelido" formControlName="nick">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="nif" class="form-singup" placeholder="NIF" formControlName="nif">
+                    </div>
+
+                    <div class="col-md-12">
+                        <input type="email" name="email" class="form-singup" placeholder="E-mail" formControlName="email">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="email" name="confirm_email" class="form-singup" placeholder="Confirmar e-mail" formControlName="confirm_email">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" name="password" class="form-singup" placeholder="Senha" formControlName="password">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" name="confirm_password" class="form-singup" placeholder="Confirmar senha" formControlName="confirm_password">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-check check-terms">
+                            <span>
+                                <input class="form-check-input" type="checkbox" value="" id="check_terms" formControlName="check_terms">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    &nbsp; Aceito os <a [routerLink]="['/use-terms']" target="_blank" >Termos de Uso</a>
+                                </label>
+                            </span>
+                          </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="button" (click)="validateStep1()">
+                            <span *ngIf="!loader">Próximo</span>
+                            <app-loader [button]="true" *ngIf="loader"></app-loader>
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+                        <p>Já tem uma conta? <a class="txt-color-purple" routerLink="/login">Entrar agora</a></p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="step === 2">
+                    <div class="col-md-12">
+                        <input type="text" name="street" class="form-singup" placeholder="Morada" formControlName="street">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="number" class="form-singup" placeholder="Número" formControlName="number">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="floor" class="form-singup" placeholder="Andar" formControlName="floor">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="cep" class="form-singup" placeholder="Código Postal" formControlName="cep" mask="0000-000">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="city" class="form-singup" placeholder="Cidade" formControlName="city">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="birthDate" class="form-singup" placeholder="Data de nascimento" formControlName="birthDate" mask="00/00/0000">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="phone" class="form-singup" placeholder="Telemóvel" formControlName="phone" mask="(00)00000-0000" >
+                    </div>
+
+                    <div class="col-md-12">
+                        <button type="submit">
+                            <span *ngIf="!loader">Cadastrar</span>
+                            <app-loader [button]="true" *ngIf="loader"></app-loader>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer2></app-footer2>

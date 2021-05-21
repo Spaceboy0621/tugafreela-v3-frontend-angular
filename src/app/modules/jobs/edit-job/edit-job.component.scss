@@ -1,0 +1,166 @@
+#editJob{
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+    background: #EFEFEF;
+    .job{
+        padding: 40px;
+        border-radius: 10px;
+        background: #FFF;
+        float: left;
+        width: 100%;
+        h2{
+            float: left;
+            width: 100%;
+            font-size: 22px;
+            font-weight: 600;
+            color: #363636;
+            margin-bottom: 20px;
+        }
+        form{
+            float: left;
+            width: 100%;
+            label{
+                margin: 0;
+                float: left;
+                width: 100%;
+                color: #363636;
+                margin-bottom: 5px;
+                &.form-check-label{
+                    margin-right: 25px;
+                    margin-top: 8px;
+                    font-size: 16px;
+                }
+            }
+            input{
+                &.form-control{
+                    float: left;
+                    width: 100%;
+                    font-size: 14px;
+                    font-weight: 300;
+                    padding: 20px 10px;
+                    margin-bottom: 20px;
+                    border: 1px solid #D6B8FF;
+                }
+                &.form-check-input{
+                    padding: 10px;
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+            select{
+                float: left;
+                width: 100%;
+                color: #444;
+                height: 42px;
+                font-size: 14px;
+                font-weight: 300;
+                padding: 10px 10px;
+                margin-bottom: 20px;
+                border: 1px solid #D6B8FF;
+            }
+            textarea{
+                float: left;
+                width: 100%;
+                resize: none;
+                padding: 10px;
+                font-size: 14px;
+                font-weight: 300;
+                margin-bottom: 20px;
+                border: 1px solid #D6B8FF;
+            }
+            .btn-adicionar{
+                float: left;
+                width: 100%;
+                border-radius: 5px;
+                padding: 11px 9.5px;
+            }
+            .tf-btn{
+                width: 100%;
+                float: left;
+            }
+            .skills-select{
+                float: left;
+                width: 100%;
+                height: auto;
+                border-radius: 5px;
+                margin-bottom: 20px;
+                border: 1px solid #D6B8FF;
+
+                ::ng-deep {
+                    .c-btn{
+                        outline: none;
+                    }
+                    .c-angle-down, .c-angle-up{
+                        margin-top: -2px;
+                    }
+                    span{
+                        font-weight: 300 !important;
+                        color: #6C757D;
+                        font-size: 14px;
+                    }
+                    .c-list{
+                        .c-token{
+                            margin-bottom: 7px !important;
+                            text-transform: uppercase;
+                            background: #363636;
+                            text-align: center;
+                            border-radius: 5px;
+                            margin: 0 5px 0 0;
+                            padding: 4px 10px;
+                            font-weight: 300;
+                            font-size: 12px;
+                            float: left;
+                            .c-label{
+                                color: #FFF;
+                                margin-right: 15px;
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            .files-attached{
+                float: left;
+                width: 50%;
+                ul{
+                    float: left;
+                    width: 100%;
+                    li{
+                        margin-bottom: 5px;
+                        float: left;
+                        width: 100%;
+                        span{
+                            width: 80%;
+                            float: left;
+                            overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 1;
+                            text-overflow: ellipsis;
+                            -webkit-box-orient: vertical;
+                        }
+                        i{
+                            float: right;
+                            margin-top: 3px;
+                            cursor: pointer;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5%;
+    button {
+        background: #D6B8FF;
+        color: white;
+        padding: 3% 6%;
+        font-weight: 600;
+    }
+}

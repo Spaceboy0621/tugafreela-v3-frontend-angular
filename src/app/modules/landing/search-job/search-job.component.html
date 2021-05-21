@@ -1,0 +1,115 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="searchFreela" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="filters">
+                    <h2>ÁREAS DE INTERESSE</h2>
+                    <app-categories (selectCategory)="filterByCategories($event)" [clearSelected]="clearCategories"></app-categories>
+
+                    <h2>RANKING DO CLIENTE</h2>
+                    <ul>
+                        <li id="rank1" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank1', 5)">5 estrelas</li>
+                        <li id="rank2" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank2', 4)">Até 4 estrelas</li>
+                        <li id="rank3" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank3', 3)">Até 3 estrelas</li>
+                        <li id="rank4" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank4', 2)">Até 2 estrelas</li>
+                        <li id="rank5" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank5', 0)">Sem feedback</li>
+                    </ul>
+                    <h2>NÍVEL DE EXPERIÊNCIA</h2>
+                    <ul>
+                        <li id="level1" class="filter-unique filter-level-unsel" (click)="selectLevel('level1', 70)">Iniciante</li>
+                        <li *ngIf="user.level >= 35" id="level2" class="filter-unique filter-level-unsel" (click)="selectLevel('level2', 150)">Intermediário</li>
+                        <li *ngIf="user.level >= 75" id="level3" class="filter-unique filter-level-unsel" (click)="selectLevel('level3', 200)">Especialista</li>
+                        <li *ngIf="user.level >= 100" id="level4" class="filter-unique filter-level-unsel" (click)="selectLevel('level4', 2000)">Mestre</li>
+                    </ul>
+
+                    <h2>TIPOS DE PROJETOS</h2>
+                    <ul>
+                        <li>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="checkFeatured" [(ngModel)]="checkFeatured" type="checkbox" id="inlineCheckbox1" value="1" (change)="selectType($event)">
+                                <label class="form-check-label" for="inlineCheckbox1">Projetos em destaque</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" name="checkUrgent" [(ngModel)]="checkUrgent" type="checkbox" id="inlineCheckbox1" value="2" (change)="selectType($event)">
+                                <label class="form-check-label" for="inlineCheckbox1">Projetos urgentes</label>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- <h2>DATA DE PUBLICAÇÃO</h2> -->
+                    <button class="tf-btn btn-default" (click)="resetFilters()">RESETAR FILTROS</button>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="skills">
+                    <span *ngFor="let skill of user.skills">{{ skill.name }}</span>
+                </div>
+                <!-- highlighted -->
+                <div class="job" *ngFor="let job of listJobs">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2 (click)="goToDetais(job.id)" class="text-title">{{ job.title }}</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <button *ngIf="job.getTimeCreatedHours() > 24 || user.premium || job.urgent" class="btn btn-proposal" (click)="goToProposal(job.id)">FAZER UMA PROPOSTA</button>
+                            <button class="btn btn-question" (click)="goToQuestion(job.id)">FAZER UMA PERGUNTA</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="statistics">
+                                <span>Publicado: {{ dateUtilsService.getDiferenceDays(job.created_at) }}</span>
+                                <span>Propostas: {{job.proposals.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="description">
+                                <h3>Descrição do job:</h3>
+                                <p class="text-desc">
+                                    {{ job.description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="skills">
+                                <h3>Habilidades desejadas:</h3>
+                                <span *ngFor="let skill of job.skills">{{ skill.name }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3 job-icons">
+                            <img src="../../../../assets/img/icons/eye.svg" *ngIf="job.viewed">
+                            <img src="../../../../assets/img/icons/auction.svg" *ngIf="job.proposalSent">
+                            <img src="../../../../assets/img/icons/alarm.svg" *ngIf="job.urgent">
+                            <img src="../../../../assets/img/icons/award.svg" *ngIf="job.featured">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="owner">
+                            <div class="">
+                                <img src={{job.owner.getPhoto()}} alt="" class="img-fluid userPhoto">
+                            </div>
+    
+                            <div class="rate">
+                                <h3>{{ job.owner.name }}</h3>
+                                <ngb-rating [rate]="job.owner.getMediaRating()" [max]="5" [readonly]="true"></ngb-rating>
+                                <span>({{ (job.owner.ratings ? job.owner.ratings.length : '0') }} Avaliações)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> <!-- /.job-->
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer2></app-footer2>

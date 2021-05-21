@@ -1,0 +1,192 @@
+.owner{
+    padding: 20px 20px 9px;
+    border-radius: 10px;
+    background: #fff;
+    float: left;
+    width: 100%;
+    .userPhoto {
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+        float: left;
+        border: 2px solid #D6B8FF;
+        margin-left: 2%;
+    }
+    .average {
+        position: relative;
+        top: -32%;
+        left: 35%;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    .infos {
+        margin-top: 4%;
+        margin-left: -5%;
+        span {
+            font-size: 1.1rem !important;
+        }
+    }
+    a {
+        float: left;
+        width: 100%;
+        color: #FFF;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: 300;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    h2{
+        float: left;
+        width: 100%;
+        font-size: 22px;
+        font-weight: 500;
+        color: #363636;
+    }
+    .profile{
+        float: left;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        span{
+            float: left;
+            width: 100%;
+            margin-top: 3px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        p {
+            word-wrap: unset !important;
+            word-break: normal;
+            font-style: italic;
+            font-size: 0.7rem;
+            font-weight: 400;
+
+        }
+    }
+
+    ul{
+        list-style: none;
+        float: left;
+        width: 100%;
+        padding: 0;
+        li {
+            float: left;
+            width: 100%;
+            padding: 1% 0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #363636;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            span{
+                width: 85%;
+                float: right;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+            svg, i{
+                width: 15%;
+                margin-top: 2px;
+                float: left;
+            }
+            i {
+                padding-left: 6%;
+            } 
+            
+        }
+    }
+
+    .info{
+        .tenders{
+            cursor: pointer;
+            background-color: #E1B9FF;
+            border-radius: 5px;
+            color: #363636;
+            padding: 8px 0;
+            float: left;
+            width: 100%;
+            h3{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-size: 25px;
+                font-weight: bold;
+                text-align: center;
+            }
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-align: center;
+            }
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .padding-5{
+            padding: 1px 5px;
+        }
+        .value{
+            background-color: #363636;
+            border-radius: 5px;
+            float: left;
+            width: 100%;
+            padding: 6%;
+            h3{
+                margin: 0;
+                float: left;
+                width: 100%;
+                color: #FFF;
+                font-size: 20px;
+                font-weight: 500;
+                text-align: center;
+            }
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                color: #FFF;
+                font-size: 0.7rem;
+                font-weight: 500;
+                text-align: center;
+            }
+        }
+        
+        button{
+            background-color: #E1B9FF;
+            border-radius: 5px;
+            color: #363636;
+            padding: 12.5px 0;
+            font-size: 12px;
+            border: none;
+            float: left;
+            width: 100%;
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-weight: 300;
+                text-align: center;
+            }
+        }
+    }
+
+    .message{
+        margin: 0;
+        float: left;
+        width: 100%;
+        margin: 10px 0;
+        font-size: 14px;
+        color: #363636;
+        font-weight: 500;
+        span{
+            cursor: pointer;
+        }
+    }
+}

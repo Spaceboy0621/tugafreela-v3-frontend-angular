@@ -1,0 +1,20 @@
+h2 {
+  font-size: 1.5rem;
+  color: #363636;
+  font-weight: 600;
+  margin-top: 5%;
+}
+table {
+  margin-top: 2%;
+}
+select {
+  margin-left: 1%;
+}
+table {
+  a {
+    color: blue !important;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

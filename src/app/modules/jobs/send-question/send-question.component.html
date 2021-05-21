@@ -1,0 +1,57 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="sendProposal" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="job">
+                    <h2>{{jobDetails.title}}</h2>
+                    <div class="job-desc" *ngIf="hideShow">
+                        <p style="font-weight: 500; font-size: 1rem;">Descrição: </p>
+                        <p>{{jobDetails.description}}</p>
+                    </div>
+                    <div class="value" *ngIf="hideShow">
+                        <p style="font-weight: 500; font-size: 1rem">Valor: </p>
+                        <p>{{jobDetails.valueJob | currency:'EUR':'symbol'}}</p>
+                    </div>
+                    <div class="time" **ngIf="hideShow && jobDetails.type === 'Hora'">
+                        <p style="font-weight: 500; font-size: 1rem">Tempo: </p>
+                        <p>{{jobDetails.hours}} horas</p>
+                    </div>
+                    <a (click)="hideShow = !hideShow">{{hideShow ? 'Menos detalhes' : 'Mais detalhes'}}</a>
+                </div>
+
+                <div class="proposal">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Envie sua pergunta</h2>
+                            <p>
+                                Você se interessa pelo projeto mas tem dúvidas sobre sua complexidade? Envie uma
+                                pergunta. Siga as boas práticas para orientar-se.
+                            </p>
+                            <textarea id="question" name="question" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div> <!-- /.proposal-->
+
+                <div class="buttons">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-confirm" (click)="sendQuestion()" [disabled]="alreadySendQuestion">ENVIAR PERGUNTA</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-cancel">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <app-owner></app-owner>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<app-footer></app-footer>

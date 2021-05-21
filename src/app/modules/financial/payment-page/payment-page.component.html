@@ -1,0 +1,46 @@
+<app-header menu="logged" [showSearch]="true"></app-header>
+
+<div class="payment shadow" *ngIf="ready">
+  <div class="title">
+    <h2>Escolha sua forma de pagamento</h2>
+  </div>
+
+  <div class="content">
+    <div class="head">
+      <span>Item</span>
+      <span>Preço</span>
+    </div>
+    <div class="infos">
+      <span>{{item}}</span>
+      <span>{{price | currency:'EUR':'symbol'}}</span>
+    </div>
+    <div class="desc" *ngIf="type === 'payment_job'">
+      <span>Pagamento Freelancer</span>
+      <span>{{(price - price * 0.15) | currency:'EUR':'symbol'}}</span>
+    </div>
+    <div class="desc" *ngIf="type === 'payment_job'">
+      <span>Pagamento Plataforma</span>
+      <span>{{price * 0.15 | currency:'EUR':'symbol'}}</span>
+    </div>
+    <div class="total">
+      <span>Total</span>
+      <span>{{price | currency:'EUR':'symbol'}}</span>
+    </div>
+    <div class="payment-methods">
+      <span *ngIf="credit_cards.length === 0" class="msg-error">
+        Nenhuma forma de pagamento válida encontrada, por favor verifique suas formas cadastradas 
+        clicando no botão abaixo
+      </span>
+      <div *ngFor="let item of credit_cards">
+        <app-financial-credit-card (selectedEvent)="selectPayment($event)" [credit_card]="item" page="buy-level"></app-financial-credit-card>
+      </div>
+    </div>
+
+    <p>*Seu pagamento será processado pela plataforma: <b>Stripe</b></p>
+    <div class="actions">
+      <button type="button" class="btn" *ngIf="credit_cards.length > 0" (click)="pay()">Confirmar pagamento</button>
+      <button type="button" class="btn" *ngIf="credit_cards.length === 0" [routerLink]="['/my-financial']">Verificar formas de pagamento</button>
+    </div>
+  </div>
+</div>
+<app-footer2></app-footer2>

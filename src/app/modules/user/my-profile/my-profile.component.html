@@ -1,0 +1,162 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="myProfile" *ngIf="ready">
+    <div class="container">
+        <div class="row" *ngIf="user">
+            <div class="col-md-8">
+                <div class="profile">
+                    <div class="resume shadow">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="{{ user.getPhoto() }}" alt="Foto de perfil">
+                            </div>
+
+                            <div class="col-md-9 personal-infos">
+                                <a *ngIf="user.id === userLogged.id" routerLink="/me/profile/edit">Editar Perfil</a>
+                                <h2 class="text-title">{{ user.name }} {{user.nick}} </h2>
+                                <p>{{ user.professional_description }}</p>
+                                <ngb-rating [rate]="user.getMediaRating()" [max]="5" [readonly]="true"></ngb-rating>                           
+                                <span>[{{ user.getMediaRating()}} - {{ feedbacks.length }} avaliações]</span>
+                                <div class="level">
+                                    <h2 class="text-desc">Nível</h2>
+                                    <p>{{levelLabel | titlecase}}</p>
+                                    <div class="progress" *ngIf="user.id === userLogged.id">
+                                        <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': actualLevel}" [aria-valuenow]="actualLevelNumber" [aria-valuemin]="minValueLevel" [aria-valuemax]="maxValueLevel"><b>{{actualLevelNumber}} / {{maxValueLevel}}</b></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedbacks shadow">
+                        <h2 *ngIf="user.type === 'Freelancer'">Feedbacks dos clientes</h2>
+                        <h2 *ngIf="user.type === 'Cliente'">Feedbacks dos freelancers</h2>
+                        <div class="feedback" *ngFor="let item of feedbacks">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src={{item.valuer.getPhoto()}} alt="" class="img-fluid">
+                                </div>
+    
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <h3><b>{{item.job.title}}</b></h3>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-9 no-padding-left">
+                                            <p>{{item.comment}}</p>
+                                            
+                                        </div>
+                                        <div class="col-md-3">
+                                            <span>{{item.rating}}</span>
+                                            <svg *ngFor="let i of item.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 31.477 31.43">
+                                                <path id="star" d="M30.641,11.252,20.965,9.774,16.628.536a1.024,1.024,0,0,0-1.78,0L10.512,9.774.835,11.252a.983.983,0,0,0-.555,1.659l7.03,7.206L5.649,30.3A.984.984,0,0,0,7.1,31.323l8.643-4.777,8.643,4.778A.984.984,0,0,0,25.828,30.3L24.166,20.118l7.03-7.205a.984.984,0,0,0-.555-1.66Z" transform="translate(0 -0.018)" fill="#ffc107"/>
+                                            </svg>
+                                            <p class="date">{{item.created_at | date}}</p> 
+                                        </div>
+                                    </div>
+                                    <div class="row user-rated">
+                                        <h3>{{item.valuer.name}} &nbsp;</h3>
+                                        <svg *ngFor="let i of item.user.averageRating" xmlns="http://www.w3.org/2000/svg" width="15.135" height="15.105" viewBox="0 0 20.135 20.105">
+                                            <path id="star" d="M19.6,7.2l-6.19-.946L10.636.349A.655.655,0,0,0,9.5.349L6.724,6.259.534,7.2A.629.629,0,0,0,.18,8.266l4.5,4.609L3.613,19.391a.63.63,0,0,0,.925.652l5.529-3.056L15.6,20.044a.63.63,0,0,0,.925-.652l-1.063-6.516,4.5-4.609A.63.63,0,0,0,19.6,7.2Z" transform="translate(0 -0.018)" fill="#ffc107"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- /.feedbacks-->
+
+                    <div class="about-me shadow">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Descrição</h2>
+                                <p>{{ user.about }}</p>
+                                <p style="margin-top: 2%;">Trabalho com:</p>
+                                <ul>
+                                    <li *ngFor="let skiil of user.skills">- {{ skiil.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> <!-- /.about-me-->
+
+                    <div class="portifolio shadow" *ngIf="user.type === 'Freelancer' && user.id === userLogged.id">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Integrar Portifólio</h2>
+                                <p>{{ user.about }}</p>
+                                <p>Trabalho com:</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="infos shadow">
+                    <div class="categories" *ngIf="user.isFreela()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Áreas de Interesse</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" *ngFor="let categorie of user.categories">
+                                <span>{{ categorie.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skills" *ngIf="user.isFreela()">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Habilidades</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" *ngFor="let skill of user.skills">
+                                <span>{{ skill.itemName ? skill.itemName : skill.name }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="confirms">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Confirmações do perfil</h2>
+                            </div>
+                        </div>
+                        <div>
+                            <p><img src="../../../../assets/img/icons/user.svg" >Membro desde 01/2020</p>
+                            <p (click)="verifyPayment()" style="cursor: pointer;"><i
+                                 class="fas fa-credit-card"
+                                 [ngStyle]="{color: user.payment_verified ? '#1ABF00' : ''}"
+                                ></i>Pagamento verificado</p>
+                            <p><img src="../../../../assets/img/icons/mobile-phone.svg" >Telemovel verificado</p>
+                            <p><img src="../../../../assets/img/icons/mail.svg" >Email verificado</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-add shadow">
+                    <h2>Informações Adicionais</h2>
+                    <ul>
+                        <li>Projetos concluídos: {{jobsConcluded.length}}</li>
+                        <li>Projetos em execução: {{jobsActive.length}}</li>
+                        <li>Projetos em disputa: 0</li>
+                        <li>Classificação dos {{user.type === 'Freelancer' ? 'clientes' : 'freelancers'}}: {{user.getMediaRating()}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="actions" *ngIf="user.id === userLogged.id">
+            <button class="btn cancel" (click)="logout()">Sair da conta</button>
+            <button class="btn default" (click)="deleteAccountModal = true">Deletar conta</button>
+        </div>
+        
+    </div>
+</section>
+<app-footer2></app-footer2>
+<app-modal-confirm *ngIf="deleteAccountModal"
+    textCancel="Deletar"
+    title="Certeza que deseja deletar a sua conta definitivamente?"
+    text="Lembre-se que ao deletar a sua conta não será possível utilizar novamente suas informações para cadastro"
+    (sendChooseEvent)="deleteAccount($event)"
+></app-modal-confirm>

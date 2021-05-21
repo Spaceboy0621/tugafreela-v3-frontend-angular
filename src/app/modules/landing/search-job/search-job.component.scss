@@ -1,0 +1,259 @@
+.userPhoto {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border: 2px solid #D6B8FF;
+}
+
+span {
+    font-weight: 500 !important;
+}
+.job-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    margin-top: 5%;
+    img {
+        width: 40px;
+        height: 40px;
+        margin-right: 5%;
+    }
+}
+.skills{
+    margin-bottom: 2%;
+    float: left;
+    width: 100%;
+    h3{
+        float: left;
+        width: 100%;
+        font-size: 1.1;
+        color: #363636;
+        font-weight: 600;
+    }
+    span{
+        text-transform: uppercase;
+        background: #363636;
+        text-align: center;
+        border-radius: 5px;
+        margin: 0 5px 0 0;
+        padding: 4px 10px;
+        font-weight: 510;
+        font-size: 0.9rem;
+        color: #FFF;
+        float: left;
+    }
+}
+#searchFreela{
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+    background: #EFEFEF;
+    .filters{
+        border-radius: 10px;
+        background: #FFF;
+        padding: 20px 20px;
+        float: left;
+        width: 100%;
+        .filter-unique {
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+        .filter-ranking-sel, .filter-level-sel {
+            background: #D6B8FF;
+            padding: 1% 3% !important;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+        input.freela-name{
+            border: 1px solid #D6B8FF;
+            padding: 10px 20px;
+            font-weight: 300;
+            font-size: 14px;
+            width: 100%;
+            float: left;
+        }
+        ul{
+            list-style: none;
+            float: left;
+            width: 100%;
+            padding: 0;
+            li {
+                float: left;
+                width: 100%;
+                padding: 3px 0;
+            }
+            input{
+                width: 20px;
+                height: 20px;
+                border: 1px solid #D6B8FF !important;
+            }
+            label{
+                color: #363636;
+                font-weight: 400;
+                font-size: 14px;
+                margin-left: 4px;
+                margin-top: 2px;
+                float: left;
+            }
+        }
+        button {
+            float: left;
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 10px 40px;
+            background: #363636;
+            width: auto !important;
+            margin-left: 15%;
+        }
+       
+        h2{
+            float: left;
+            width: 100%;
+            color: #363636;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+    }
+
+    .job{
+        box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.2);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        background: #FFF;
+        padding: 20px;
+        
+        float: left;
+        width: 100%;
+        &.highlighted{
+            background: #ECDEFF;
+            border: 2px solid #D6B8FF;
+        }
+        h2{
+            margin-bottom: 5px;
+            color: #363636;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 22px;
+            float: left;
+            width: 100%;
+        }
+        .btn-proposal {
+            padding: 4% 8%;
+            border-radius: 5px;
+            background: #D6B8FF;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 2%;
+        }
+        .btn-question {
+            padding: 4% 8%;
+            border-radius: 5px;
+            background: #363636;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+        }
+        .statistics{
+            margin-bottom: 20px;
+            float: left;
+            width: 100%;
+            span{
+                float: left;
+                font-size: 0.9rem;
+                color: #363636;
+                font-weight: 520;
+                margin-right: 20px;
+                &.category{
+                    color: #6C7A89;
+                }
+            }
+        }
+
+        .description{
+            margin-bottom: 20px;
+            float: left;
+            width: 100%;
+            h3{
+                float: left;
+                width: 100%;
+                font-size: 1.1rem !important;
+                color: #363636;
+                font-weight: 600;
+            }
+            p{
+                text-align: justify;
+                font-weight: 500;
+                font-size: 0.9rem !important;
+                color: #363636;
+            }
+        }
+
+        .skills{
+            margin-bottom: 30px;
+            float: left;
+            width: 100%;
+            h3{
+                float: left;
+                width: 100%;
+                font-size: 1.1;
+                color: #363636;
+                font-weight: 600;
+            }
+            span{
+                text-transform: uppercase;
+                background: #363636;
+                text-align: center;
+                border-radius: 5px;
+                margin: 0 5px 0 0;
+                padding: 4px 10px;
+                font-weight: 510;
+                font-size: 0.9rem;
+                color: #FFF;
+                float: left;
+            }
+        }
+
+        .owner{
+            margin: 2%;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center !important;
+            div{
+                margin-right: 3%;
+            }
+            .rate {
+                margin-top: 2%;
+                width: 80%;
+            }
+            h3{
+                font-size: 1rem;
+                font-weight: 500;
+                float: left;
+            }
+            ngb-rating{
+                color: #FFC106;
+                font-size: 1.5rem;
+                margin-top: 4px;
+                margin-left: 2%;
+                outline: none;
+                float: left;
+                span{
+                    margin-right: 3px;
+                }
+            }
+            span{
+                float: left;
+                margin-top: 4px;
+                font-size: 14px;
+                margin-left: 5px;
+                font-weight: 500;
+            }
+        }
+    }
+}

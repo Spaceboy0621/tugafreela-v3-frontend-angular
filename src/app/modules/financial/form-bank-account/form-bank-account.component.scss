@@ -1,0 +1,36 @@
+h2 {
+  font-size: 1.5rem;
+  color: #363636;
+  font-weight: 600;
+  margin-top: 2%;
+}
+.form-check {
+  input {
+    width: 20px;
+    height: 20px;
+  }
+  label {
+    font-size: 1.1rem;
+
+  }
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  button {
+    width: 40%;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    padding: 1% 2%;
+    margin-right: 2%;
+  }
+  .save {
+    background: #363636;
+  }
+  .cancel {
+    background: #C10505;
+  }
+}

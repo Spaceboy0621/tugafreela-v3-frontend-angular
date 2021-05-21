@@ -1,0 +1,38 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<section id="faq">
+    <div class="header">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="39" height="39" viewBox="0 0 69 69">
+                    <g id="Elipse_150" data-name="Elipse 150" fill="none" stroke="#d6b8ff" stroke-width="8">
+                      <circle cx="34.5" cy="34.5" r="34.5" stroke="none"/>
+                      <circle cx="34.5" cy="34.5" r="30.5" fill="none"/>
+                    </g>
+                </svg>
+                <h2>
+                    <i></i>
+                    <span>
+                        Entre em contato<br>
+                        conosco!
+                    </span>
+                </h2>
+                <form [formGroup]="formContact" (ngSubmit)="send()">
+                    <input type="text" name="name" placeholder="NOME" formControlName="name">
+                    <input type="email" name="email" placeholder="E-MAIL" formControlName="email">
+                    <input type="text" name="whatsapp" placeholder="WHATSAPP" formControlName="whats">
+                    <textarea name="message" rows="4" placeholder="MENSAGEM" formControlName="message"></textarea>
+                    <button type="submit">
+                        <span *ngIf="!loader">Enviar</span>
+                        <app-loader [button]="true" *ngIf="loader"></app-loader>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <img src="assets/img/contact.png" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

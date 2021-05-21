@@ -1,0 +1,299 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="dispute" *ngIf="ready">
+    <div class="container">
+        <div class="row"> 
+            
+            <div class="col-md-4 proposal">
+                <h2>{{ dispute.status === 'closed' ? 'Acordo feito' : 'Proposta de valores atual'}}</h2>
+                <div id="actual-proposal" *ngIf="dispute.deal_proposal === 'made_by_parts' || dispute.deal_proposal === 'made_by_moderator'">
+                    <p><b>Valor total acordado:</b> {{job.agreed_value | currency: 'BRL':'symbol'}}</p>
+                    <p><b>Cliente:</b> {{job.agreed_value * (dispute.percentage_owner/100) | currency: 'BRL':'symbol'}} ({{dispute.percentage_owner}}%) </p>
+                    <p><b>Freela:</b>  {{job.agreed_value * (dispute.percentage_freela/100) | currency: 'BRL':'symbol'}} ({{dispute.percentage_freela}}%) </p><br>
+                    <p><b>{{dispute.deal_proposal === 'made_by_parts' ? 'Proposto por: ' : 'Definido pelo moderador: '}}</b>  <i>{{dispute.deal_proposed_by.name}}</i></p>
+                    <p *ngIf="dispute.deal_proposal === 'made_by_parts'"><b>Aguardando Resposta de: </b>  <br>{{dispute.deal_proposed_by.id === job.owner.id ? job.freelancer.name : job.owner.name}}</p>
+                    <hr *ngIf="dispute.deal_proposal === 'made_by_moderator'">
+                    <p *ngIf="dispute.deal_proposal === 'made_by_moderator'"><b>Justificativa do moderador: </b></p>
+                    <p *ngIf="dispute.deal_proposal === 'made_by_moderator'"><i>{{dispute.justification}}</i></p>
+                </div>
+                <div 
+                    class="buttons" 
+                    *ngIf="(dispute.deal_proposal === 'made_by_parts' && dispute.deal_proposed_by && dispute.deal_proposed_by.id !== user.id && dispute.status != 'closed')"
+                >
+                    <button style="background: #E1B9FF;color: white;" class="btn btn-confirm" (click)="acceptProposal()">ACEITAR</button>
+                    <button style="background: #929292; color: white" class="btn btn-cancel" (click)="recuseProposal()">RECUSAR</button>
+                </div>
+                <span *ngIf="(dispute.percentage_freela === 0 || dispute.percentage_owner === 0) && dispute.deal_proposal === 'none'">
+                    Nenhuma proposta de acordo ativa
+                </span>
+
+                <div class="make-proposal-div">
+                    <h1 class="modal-title">Propor Acordo</h1>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="percentage_client">% para o cliente</label>
+                            <input
+                                type="number"
+                                name="percentage_client"
+                                id="percentage_client"
+                                class="form-control"
+                                [(ngModel)]="percentage_client"
+                                placeholder="Apenas números"
+                                (focusout)="fillPerentageFreela()"
+                                max="100"
+                                min="0"
+                            >  
+                            <span><b>Valor: </b> {{value_client | currency: 'BRL':'symbol'}}</span>  
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="percentage_Freela">% para o Freelancer</label>
+                            <input
+                                type="number"
+                                name="percentage_freela"
+                                id="percentage_freela"
+                                class="form-control"
+                                [(ngModel)]="percentage_freela"
+                                placeholder="Apenas números"
+                                readonly
+                            >
+                            <span><b>Valor: </b> {{value_freela | currency: 'BRL':'symbol'}}</span>    
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="actions">
+                    <button 
+                        (click)="sendProposal()"
+                        *ngIf="dispute.status !== 'closed' && dispute.percentage_freela === 0 && dispute.percentage_owner === 0 && phaseDispute === 'first'" 
+                        class="btn btn-default make-proposal"
+                    >Propor Acordo</button>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="job">
+                    <h2>{{ job.title }}</h2>
+                    <span>Descrição do job:</span>
+                    <p>
+                        <br>
+                        {{ job.description }}
+                    </p>
+                    <div class="skills">
+                        <h3>Habilidades desejadas:</h3>
+                        <span *ngFor="let skill of job.skills">{{ skill.name }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Mensagens</h2>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs nav-dispute">
+
+            <!--Mensagem com outra parte do projeto -->
+            <li ngbNavItem>
+              <a ngbNavLink>{{user.id === job.owner.id ? 'Freelancer' : 'Cliente'}}</a>
+              <ng-template ngbNavContent>
+                <div class="row chat1">
+                    <div class="col-md-12">
+                        <div class="main-chat shadow">
+                            <div class="row main-chat-img">
+                                <div class="div-img">
+                                    <img 
+                                        class="userPhotoBig" 
+                                        src="{{user.id === job.owner.id ? job.freelancer.getPhoto() : job.owner.getPhoto()}}"
+                                    >
+                                </div>
+                                <div class="col-md-8 name">
+                                    {{user.id === job.owner.id ? job.freelancer.name : job.owner.name}}
+                                </div>
+                            </div>
+                
+                            <hr style="color: white;">
+                            <div class="messages1" *ngIf="dispute.messages.length !== 0">
+                                <div *ngFor="let message of dispute.messages">
+                
+                                    <div class="side-secondary" *ngIf="message.user.id !== user.id">
+                                        <div class="bubble-secondary">
+                                            <p>{{message.message}}</p>     
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <div class="side-main" *ngIf="message.user.id === user.id">
+                                        <div class="bubble-main">
+                                            <p>{{message.message}}</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                            <form (onsubmit)="sendMessage()" *ngIf="dispute.status !== 'closed' && phaseDispute === 'first'">
+                                <div class="form-group send-msg-form">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        name="message" 
+                                        id="message" 
+                                        [(ngModel)]="message" 
+                                        placeholder="Escreva sua mensagem..."
+                                        [style.border]="inputHasFocus && !messageToSendValid ? '1px solid red' : 'none'"
+                                        (focusout)="inputHasFocus =  (!message || message === '') ? true : false"
+                                    >
+                                    <button type="submit" class="btn" (click)="sendMessage()">
+                                        <i class="fas fa-paper-plane"></i> 
+                                    </button>
+                                </div>
+                                <span class="text-danger" *ngIf="inputHasFocus && !messageToSendValid">Digite uma mensagem</span>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+              </ng-template>
+            </li>
+
+            <!-- Mensagem com o moderador -->
+            <li ngbNavItem >
+              <a ngbNavLink>Moderador</a>
+              <ng-template ngbNavContent>
+                <div class="row chat1">
+                    <div class="col-md-12">
+                        <div class="main-chat shadow">
+                            <div class="messages1" *ngIf="dispute.messages_moderator.length !== 0">
+                                <div *ngFor="let message of dispute.messages_moderator">
+                                    
+                                    <div *ngIf="(user.id === job.owner.id && message.type === 'with_client') || (user.id === job.freelancer.id && message.type === 'with_freela')">
+                                        <div class="side-secondary" *ngIf="message.user.id !== user.id">
+                                            <div class="bubble-secondary">
+                                                <p>{{message.message}}</p>
+                                                <div *ngIf="message.attachments && message.attachments.length > 0">
+                                                    <p *ngFor="let attach of message.attachments">
+                                                        <a *ngIf="attach.formats && attach.formats !== null" href={{getUrlPhoto(attach.formats.small.url)}} target="_blank">
+                                                            <img class="image-chat" src={{getUrlPhoto(attach.formats.small.url)}}  >
+                                                        </a>
+                                                        <a *ngIf="!attach.formats || attach.formats === null" href={{getUrlPhoto(attach.url)}} target="_blank">
+                                                            {{attach.name}}
+                                                        </a>
+                                                    </p>
+                                                    
+                                                </div>     
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                        <div class="side-main" *ngIf="message.user.id === user.id">
+                                            <div class="bubble-main">
+                                                <p>{{message.message}}</p>
+                                                <div *ngIf="message.attachments && message.attachments.length > 0">
+                                                    <p *ngFor="let attach of message.attachments">
+                                                        <a *ngIf="attach.formats && attach.formats !== null" href={{getUrlPhoto(attach.formats.small.url)}} target="_blank">
+                                                            <img class="image-chat" src={{getUrlPhoto(attach.formats.small.url)}}  >
+                                                        </a>
+                                                        <a *ngIf="!attach.formats || attach.formats === null" href={{getUrlPhoto(attach.url)}} target="_blank">
+                                                            {{attach.name}}
+                                                        </a>
+                                                    </p>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                            <form (onsubmit)="sendMessageToModerator()" *ngIf="dispute.status !== 'closed' && phaseDispute === 'first'">
+                                <div class="form-group send-msg-form">
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        name="messageModerator" 
+                                        id="messageModerator" 
+                                        [(ngModel)]="messageModerator" 
+                                        placeholder="Escreva sua mensagem..."
+                                    >
+                                    <i (click)="openAttachFile()" class="fas fa-paperclip"></i>
+                                    <input 
+                                        type="file" id="profilePhoto" #attachFile [hidden]="true"
+                                        (change)="addFiles($event.target.files)" multiple
+                                    >
+
+                                    <button type="submit" class="btn" (click)="sendMessageToModerator()">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </div>
+                                <div class="files-attached">
+                                    <ul>
+                                        <li *ngFor="let file of filesAttached; let i = index;">
+                                            <span>{{ file.name }}</span>
+                                            <i (click)="removeFile(i)" class="fas fa-trash-alt"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav" ></div>
+
+    </div>
+
+    <div bsModal class="modal fade" tabindex="-1" #sendProposalModal="bs-modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title">Propor Acordo</h1>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="sendProposalModal.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="percentage_client">% para o cliente</label>
+                        <input
+                            type="number"
+                            name="percentage_client"
+                            id="percentage_client"
+                            class="form-control"
+                            [(ngModel)]="percentage_client"
+                            placeholder="Apenas números"
+                            (focusout)="fillPerentageFreela()"
+                            max="100"
+                            min="0"
+                        >  
+                        <span><b>Valor: </b> {{value_client | currency: 'BRL':'symbol'}}</span>  
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="percentage_Freela">% para o Freelancer</label>
+                        <input
+                            type="number"
+                            name="percentage_freela"
+                            id="percentage_freela"
+                            class="form-control"
+                            [(ngModel)]="percentage_freela"
+                            placeholder="Apenas números"
+                            readonly
+                        >
+                        <span><b>Valor: </b> {{value_freela | currency: 'BRL':'symbol'}}</span>    
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button style="background: #E1B9FF;" class="btn btn-default" (click)="calculateValueProposal()">Calcular</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="background: #E1B9FF;color: white;" class="btn btn-default" (click)="sendProposal()">ENVIAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</section>
+<app-footer2 *ngIf="ready"></app-footer2>

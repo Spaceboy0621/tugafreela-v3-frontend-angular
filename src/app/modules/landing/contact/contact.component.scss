@@ -1,0 +1,75 @@
+#faq{
+    float: left;
+    width: 100%;
+    margin-bottom: 30px;
+
+    .header{
+        float: left;
+        width: 100%;
+        min-height: 400px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image: url('../../../../assets/img/how-works/how-works-bg.png');
+    }
+
+    svg{
+        float: left;
+        margin-top: -20px;
+    }
+
+    h2{
+        float: left;
+        width: 100%;
+        padding: 0;
+        font-size: 28px;
+        color: #363636;
+        font-weight: bold;
+        line-height: 25px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        i{
+            width: 5px;
+            float: left;
+            height: 40px;
+            background: #D6B8FF;
+            margin: 20px 10px 10px 0;
+        }
+        span{
+            float: left;
+            margin-top: 15px;
+        }
+    }
+    form{
+        float: left;
+        width: 100%;
+        padding-right: 50px;
+        input {
+            float: left;
+            width: 100%;
+            border: none;
+            padding: 15px 10px;
+            margin-bottom: 10px;
+            background: #EFEFEF;
+        }
+        textarea {
+            float: left;
+            width: 100%;
+            border: none;
+            resize: none;
+            padding: 15px 10px;
+            margin-bottom: 10px;
+            background: #EFEFEF;
+        }
+        button {
+            float: left;
+            width: 50%;
+            border: none;
+            padding: 15px 70px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 5px;
+            background: #D6B8FF;
+        }
+    } 
+}

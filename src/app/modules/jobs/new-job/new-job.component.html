@@ -1,0 +1,183 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<section id="newJob">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="job shadow">
+                    <h2>Publicar Projeto</h2>
+                    <form [formGroup]="formJob" (ngSubmit)="create()">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="categories">Áreas de interesse</label>
+                                            <angular2-multiselect [data]="categoriesData" formControlName="categories" name="categories" id="categories"
+                                                [settings]="dropdownSettings" (onSelect)="onItemSelect($event, 2, true)"
+                                                (onDeSelect)="OnItemDeSelect($event, true)">
+                                            </angular2-multiselect>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="title">Título do projeto</label>
+                                            <input type="text" class="form-control" id="title" name="title"
+                                                placeholder="Digite o título do projeto" formControlName="title">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="descripton">O que deverá ser feito?</label>
+                                            <textarea name="description" id="descripton" class="form-control" rows="7"
+                                                placeholder="Digite a descrição do projeto" formControlName="description" minLength="150"></textarea>
+                                                <span>{{this.formJob.value.description.length}} / 500</span>
+                                                <span class="text-danger" *ngIf="this.formJob.value.description.length < 150">
+                                                    <p class="text-danger">Descrição muito curta ({{150 - this.formJob.value.description.length}} caracteres faltantes)</p>
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="descripton">Anexar aquivo</label>
+                                            <div class="row">
+                                                <div class="col-md-8 no-padding-right">
+                                                    <input type="file" id="attachFile" #attachFile [hidden]="true"
+                                                        (change)="changeFile($event.target.files)" multiple>
+                                                    <input type="text" class="form-control" placeholder="Adicionar arquivos" (click)="openAttachFile()">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="button" (click)="openAttachFile()" class="tf-btn btn-adicionar">Adicionar</button>
+                                                </div>
+                                            </div>
+                                            <div class="files-attached">
+                                                <ul>
+                                                    <li *ngFor="let file of filesAttached; let i = index;">
+                                                        <span>{{ file.name }}</span>
+                                                        <i (click)="removeFile(i)" class="fas fa-trash-alt"></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="skills">Habilidades desejadas</label>
+                                            <angular2-multiselect [data]="skillsData" formControlName="skills" name="skills" id="skills"
+                                                [settings]="dropdownSettings" (onSelect)="onItemSelect($event, 4, false)"
+                                                (onDeSelect)="OnItemDeSelect($event, false)">
+                                            </angular2-multiselect>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Nível de experiência</label>
+                                    </div>
+                                    <div class="col-md-12" style="margin-bottom: 10px;">
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" name="level_experience" id="Iniciante" [value]="35" formControlName="level_experience">
+                                            <label for="Iniciante" class="form-check-label">Iniciante</label>
+                                        </div>
+                                        <div class="form-check form-check-inline" *ngIf="userLogged.level > 70">
+                                            <input type="radio" class="form-check-input" name="level_experience" id="Intermediario" [value]="70" formControlName="level_experience">
+                                            <label for="Intermediario" class="form-check-label">Intermediário</label>
+                                        </div>
+                                        <div class="form-check form-check-inline" *ngIf="userLogged.level > 150">
+                                            <input type="radio" class="form-check-input" name="level_experience" id="Especialista" [value]="100" formControlName="level_experience">
+                                            <label for="Especialista" class="form-check-label">Especialista</label>
+                                        </div>
+                                        <div class="form-check form-check-inline" *ngIf="userLogged.level > 200">
+                                            <input type="radio" class="form-check-input" name="level_experience" id="Master" [value]="1000" formControlName="level_experience">
+                                            <label for="Especialista" class="form-check-label">Master</label>
+                                        </div>
+                                    </div>
+                                    <br><br><br>
+                                    <div class="col-md-12">
+                                        <label>Tipo do projeto</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" name="type" id="fixo" value="Fixo" formControlName="type" checked>
+                                            <label for="fixo" class="form-check-label">Valor Fixo</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" class="form-check-input" name="type" id="hora" value="Hora" formControlName="type">
+                                            <label for="hora" class="form-check-label">Por Hora</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 fix-value" *ngIf="formJob.value.type === 'Fixo'">
+                                        <input 
+                                            type="text" 
+                                            class="form-control"
+                                            name="valueJob"
+                                            id="valueJob" 
+                                            formControlName="valueJob"
+                                            mask="separator" thousandSeparator="." 
+                                            placeholder="Valor do Projeto - Apenas Números"   
+                                        >
+                                    </div>
+                                    <div class="col-md-6" *ngIf="formJob.value.type === 'Hora'">
+                                        <input 
+                                            type="text" 
+                                            class="form-control"
+                                            name="hours"
+                                            id="hours" 
+                                            formControlName="hours"
+                                            placeholder="Hora - 0h até 72h"   
+                                        >
+                                        <span class="text-danger" *ngIf="formJob.value.hours > 72">Digite um valor entre 0 e 72h</span>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="formJob.value.type === 'Hora'">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="valueHour"
+                                            id="valueHour"
+                                            formControlName="valueHour"
+                                            placeholder="Valor/h"
+                                            mask="separator" thousandSeparator="."
+                                            (focusout)="calculateTotalValueHour()"
+                                        >
+                                    </div>
+                                    <div class="col-md-6 offset-md-3" *ngIf="formJob.value.type === 'Hora'">
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            name="valueJob"
+                                            id="valueHourTotal"
+                                            placeholder="Valor/h total"
+                                            (focus)="calculateTotalValueHour()"
+                                            formControlName="valueJob"
+                                            readonly
+                                        >
+                                    </div>
+                                    <div class="col-md-12">
+                                        <br>
+                                        <div class="form-check form-check-inline">
+                                            <input type="checkbox" class="form-check-input" name="accept_terms" id="acceptTerms">
+                                            <label for="acceptTerms" class="form-check-label">Aceito os <a href="">termos de uso</a></label>
+                                        </div>
+                                    </div>
+                                    <br><br><br>
+                                    <div class="col-md-12">
+                                        <div class="row actions">
+                                            <button type="button" (click)="showFeatureUrgent = true" class="btn">Publicar Projeto</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer2></app-footer2>
+<app-loader *ngIf="loading"></app-loader>
+<app-select-type-project *ngIf="showFeatureUrgent" (eventType)="getEventTypeJob($event)"></app-select-type-project>

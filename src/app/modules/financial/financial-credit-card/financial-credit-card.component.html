@@ -1,0 +1,37 @@
+<div class="credit-card">
+    <div class="content">
+      <img [src]="'../../../../assets/img/credit-cards/' + credit_card.flag + '.svg'" >
+        <div class="infos">
+            <div class="surname">{{credit_card.surname}} &nbsp;&nbsp; <i style="font-weight: 500 !important;">({{credit_card.type_card | titlecase}})</i></div>
+            <div class="number">{{numberToShow}}</div>
+            <div class="name">{{credit_card.name_on_the_card | uppercase}}</div>
+        </div>
+        <div class="expiration">
+            <p><b>Expira em: </b>{{credit_card.expiration_date_month}}/{{credit_card.expiration_date_year}}</p>
+        </div>
+    </div>
+   
+
+    <div class="options">
+        <i 
+          *ngIf="page === 'financial'"
+          class="fas fa-credit-card" (click)="charge()"
+          [ngStyle]="{color: credit_card.checked ? 'green' : 'red', 'cursor': credit_card.checked ? 'not-allowed' : 'pointer'}"
+          placement="top" ngbTooltip="Validar Cartão"
+          ></i>
+        <i *ngIf="page === 'financial'" class="fas fa-trash" (click)="deleteCard()" style="color: #C10505;" placement="top" ngbTooltip="Excluir Cartão"></i>
+        <i *ngIf="page === 'financial'" class="fas fa-pen" (click)="editCard()" style="color: #d6b8ff;" placement="top" ngbTooltip="Editar Cartão"></i>
+
+        <div class="form-check" *ngIf="page !== 'financial'">
+          <input 
+            class="form-check-input card-radio" 
+            type="radio" 
+            name="card-radio" 
+            [id]="'card' + credit_card.id" 
+            [value]="credit_card.id"
+            (change)="selectCard()"
+          >
+        </div>
+    </div>
+    
+</div>

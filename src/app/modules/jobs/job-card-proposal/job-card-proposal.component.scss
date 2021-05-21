@@ -1,0 +1,55 @@
+h3{
+    font-size: 1.1rem;
+    font-weight: 600;
+    float: left;
+    width: 100%;
+    margin-bottom: 1%;
+    &:hover {
+        cursor: pointer;
+    }
+}
+p{
+    float: left;
+    font-weight: 400;
+    color: #363636;
+    margin: 0 15px 2% 0;
+    &.full{
+        width: 100%;
+    }
+}
+.actions{
+    float: left;
+    right: 70px;
+    width: 230px;
+    list-style: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    background: #363636;
+    .arrow{
+        position: absolute; 
+        right: -12px; 
+        top: 5px;
+    }
+    li{
+        float: left;
+        width: 100%;
+        color: #FFF;
+        padding: 5px 0;
+        font-size: 14px;
+        font-weight: 300;
+        svg{
+            float: left;
+        }
+        span{
+            float: left;
+            margin-left: 5px;
+        }
+        :hover{
+            transform: scale(1.1);
+        }
+    }
+    :hover{
+        cursor: pointer;
+    }
+}

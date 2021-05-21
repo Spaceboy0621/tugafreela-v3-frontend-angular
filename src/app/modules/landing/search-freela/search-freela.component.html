@@ -1,0 +1,64 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<section id="searchFreela" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="filters shadow-sm">
+                    <input 
+                        type="text" 
+                        name="freela-name" 
+                        placeholder="Nome do freelancer" 
+                        class="freela-name" 
+                        [(ngModel)]="freelaSearchInput"
+                        (keyup)="filterByName()"
+                    >
+                    <h2>ÁREAS DE ATUAÇÃO</h2>
+                    <app-categories [idChecked]="idChecked" (selectCategory)="filterByCategories($event)" [clearSelected]="clearCategories"></app-categories>
+
+                    <h2>RANKING DO CLIENTE</h2>
+                    <ul>
+                        <li id="rank1" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank1', 5)">5 estrelas</li>
+                        <li id="rank2" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank2', 4)">Até 4 estrelas</li>
+                        <li id="rank3" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank3', 3)">Até 3 estrelas</li>
+                        <li id="rank4" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank4', 3)">Até 3 estrelas</li>
+                        <li id="rank5" class="filter-unique filter-ranking-unsel" (click)="selectRanking('rank5', 0)">Sem feedback</li>
+                    </ul>
+                    <h2>NÍVEL DE EXPERIÊNCIA</h2>
+                    <ul>
+                        <li id="level1" class="filter-unique filter-level-unsel" (click)="selectLevel('level1', 35)">Iniciante</li>
+                        <li id="level2" class="filter-unique filter-level-unsel" (click)="selectLevel('level2', 70)">Intermediário</li>
+                        <li id="level3" class="filter-unique filter-level-unsel" (click)="selectLevel('level3', 100)">Especialista</li>
+                        <li id="level4" class="filter-unique filter-level-unsel" (click)="selectLevel('level4', 1000)">Mestre</li>
+                    </ul>
+
+                    <button class="btn btn-default" (click)="resetFilters()">RESETAR FILTROS</button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="result shadow-sm">
+                    <div class="freela" *ngFor="let user of listUsers">
+                        <div class="row">
+                            <div>
+                                <img src={{user.getPhoto()}} alt="" class="img-fluid userPhoto">
+                            </div>
+
+                            <div class="col-md-11">
+                                <span [routerLink]="['/profile', user.id]" class="freela-name">{{ user.name }}</span>
+                                <ngb-rating [rate]="getMediaRating(user.ratings)" [max]="5" [readonly]="true"></ngb-rating>
+
+                                <span>({{ user.ratings?.length }} Avaliações)</span>
+                                <p class="desc">{{ user.professional_description }}</p>
+                                <p class="about">{{ user.about }}</p>
+                                <div class="skills">
+                                    <span *ngFor="let skill of user.skills">{{ skill.name }}</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer2 *ngIf="ready"></app-footer2>

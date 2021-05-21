@@ -1,0 +1,74 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section class="rating shadow" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+        
+            <div class="col-md-8 offset-md-2">
+
+                <form (ngSubmit)="rate()">  
+                    <div class="col-md-12">
+                        <div class="person" *ngIf="user.type === 'Cliente'">
+                            <img class="userPhoto" src="{{job.freelancer.getPhoto()}}" width="64" alt="">
+                            <p class="text-subtitle">{{job.freelancer.name}}</p>
+                        </div>
+        
+                        <div class="person" *ngIf="user.type === 'Freelancer'">
+                            <img class="userPhoto" src="{{job.owner.getPhoto()}}" width="64" alt="">
+                            <p class="text-subtitle">{{job.owner.name}}</p>
+                        </div>
+                    </div>  
+                   
+
+                    <div class="col-md-12">
+
+                        <p *ngIf="user.type === 'Cliente'" class="text-desc">
+                            Qual sua nota para 
+                            <a [routerLink]="['/profile', job.freelancer.id]" target="_blank"><i class="nameRate">{{job.freelancer.name}}</i></a> 
+                            em relação ao projeto 
+                            <a [routerLink]="['/job', job.id]" target="_blank"><i class="nameRate">{{job.title}}</i></a>
+                        </p>
+
+                        <p *ngIf="user.type === 'Freelancer'" class="text-desc">
+                            Qual sua nota para 
+                            <a [routerLink]="['/profile', job.owner.id]"><i class="nameRate">{{job.owner.name}}</i></a> 
+                             em relação ao projeto 
+                            <a [routerLink]="['/job', job.id]" target="_blank"><i class="nameRate">{{job.title}}</i></a>
+                        </p>
+
+                        <div class="form-group">
+                            <ngb-rating class="star" [(rate)]="currentRate"></ngb-rating>
+                        </div>
+                    </div>
+                    
+                    
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="ratingText">Comentário</label>
+                            <textarea 
+                                rows="7"
+                                maxlength="500"
+                                class="form-control"
+                                id="ratingText"
+                                name="ratingText"
+                                [(ngModel)]="ratingText"
+                            >
+                            </textarea>
+                        <span>{{ratingText.length}} / 500</span>
+                    </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="row justify-content-end">
+                            <button class="btn btn-confirm" type="submit">AVALIAR</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    
+        </div>
+    </div>
+    
+</section>
+<app-footer></app-footer>

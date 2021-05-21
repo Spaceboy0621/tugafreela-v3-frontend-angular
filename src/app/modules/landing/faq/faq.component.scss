@@ -1,0 +1,81 @@
+#faq{
+    float: left;
+    width: 100%;
+    margin-bottom: 30px;
+
+    .header{
+        float: left;
+        width: 100%;
+        min-height: 400px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-image: url('../../../../assets/img/page-header-bg.png');
+        h2{
+            float: left;
+            width: 100%;
+            color: #FFF;
+            font-size: 40px;
+            font-weight: 700;
+            padding: 170px 0;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+    }
+
+    ul {
+        float: left;
+        width: 100%;
+        list-style: none;
+        margin-top: 30px;
+        padding-right: 50px;
+        li {
+            float: left;
+            width: 100%;
+            padding: 3px 0;
+            margin-bottom: 10px;
+            a{
+                font-size: 14px;
+                cursor: pointer;
+                color: #363636;
+                font-weight: 700;
+                &:hover{
+                    text-decoration: none;
+                }
+                &.active{
+                    color: #B383F3;
+                }
+            }
+        }
+    }
+    
+    .content{
+        float: left;
+        width: 100%;
+        margin-top: 30px;
+        h3{
+            margin-bottom: 3px;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #363636;
+            font-size: 25px;
+            float: left;
+            width: 100%;
+            a{
+                float: right;
+                font-size: 14px;
+                cursor: pointer;
+                font-weight: 300;
+                color: #D6B8FF;
+            }
+        }
+        p{
+            float: left;
+            width: 100%;
+            font-size: 16px;
+            color: #797979;
+            margin-bottom: 10px;
+        }    
+    }
+}

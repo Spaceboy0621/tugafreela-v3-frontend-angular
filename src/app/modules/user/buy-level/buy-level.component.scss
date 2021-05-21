@@ -1,0 +1,100 @@
+.bg {
+  width: 100%;
+  height: 100vh;
+  background: rgb(239,239,239, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  .buy {
+    position: absolute;
+    top: 10%;
+    background: #FFC106;
+    border-radius: 10px;
+    padding: 2% 4%;
+    width: 34%;
+    margin-left: 33%;
+    .strip {
+      img {
+        width: 30%;
+        position: absolute;
+        right: -3%;
+        top: -2.5%;
+      }
+    }
+    .title {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      span {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    .content {
+      margin: 10% 0;
+      p {
+        font-size: 0.8rem;
+        font-weight: 400;
+        word-break: unset !important;
+      }
+      .imgs {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 8% 0;
+        #level1 {
+          width: 18%;
+        }
+        #level2 {
+          width: 28%;
+        }
+        #level3 {
+          width: 60%;
+        }
+        img {
+          height: 40px;
+        }
+      }
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        width: 80%;
+        background: #363636;
+        padding: 2% 6%;
+        color: white;
+      }
+    }
+  }
+}
+
+@media(min-width: 1600px) {
+  .buy {
+    width: 24% !important;
+    margin-left: 38% !important;
+  }
+  .title {
+    span {
+      font-size: 1.2rem !important;
+    }
+  }
+  .content {
+    p {
+      font-size: 1rem !important;
+    }
+  }
+}
+
+@media(min-width: 576px) and (max-width: 1599px) {
+ 
+}
+
+@media(max-width: 575px) {
+  
+}

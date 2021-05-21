@@ -1,0 +1,145 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-5" style="margin-bottom: 5%;">
+            <h2>
+                Complete seu perfil no <br>TugaFreela
+            </h2>
+            <form [formGroup]="formCompleteInfosFreela" (ngSubmit)="completeFreela()" *ngIf="user.type === 'Freelancer'">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <input type="text" name="professionalTitle" class="form-complete" placeholder="Título Profissional" formControlName="professionalTitle">
+                    </div>
+                    <div class="col-md-6">
+                        <angular2-multiselect class="form-complete" [data]="categoriesData" formControlName="categories" name="categories" id="categories"
+                            [settings]="dropdownCategoriesSettings" (onSelect)="onItemSelect($event, 3, true)"
+                            (onDeSelect)="OnItemDeSelect($event, true)" 
+                        >
+                            <c-item>
+                                <ng-template let-item="item">
+                                    <label> <b>{{item.id}} - </b> {{item.itemName}}</label>
+                                </ng-template>
+                            </c-item>
+                            <c-badge>
+                                <ng-template let-item="item">
+                                    <label> <b>{{item.id}} - </b> {{item.itemName}}</label>
+                                </ng-template>
+                            </c-badge>
+                        </angular2-multiselect>
+                    </div>
+                    <div class="col-md-6">
+                        <angular2-multiselect class="form-complete" [data]="skillsData" formControlName="skills" name="skills" id="skills"
+                            [settings]="dropdownSkillsSettings" (onSelect)="onItemSelect($event, 9, false)"
+                            (onDeSelect)="OnItemDeSelect($event, false)"
+                        >
+                            <c-item>
+                                <ng-template let-item="item">
+                                    <label><b>{{item.category}}.{{item.id}} - </b>{{item.itemName}}</label>
+                                </ng-template>
+                            </c-item>
+                            <c-badge>
+                                <ng-template let-item="item">
+                                    <label><b>{{item.category}}.{{item.id}} - </b>{{item.itemName}}</label>
+                                </ng-template>
+                            </c-badge>
+                        </angular2-multiselect>
+                    </div>>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea 
+                                placeholder="Descrição"
+                                rows="5" 
+                                minlength="150" 
+                                maxlength="500" 
+                                class="form-control form-complete" 
+                                id="description" 
+                                name="description" 
+                                formControlName="description"
+                                [ngStyle]="(this.formCompleteInfosFreela.value.description.length < 150) && {'border': '1px solid red'}"
+                            ></textarea>
+                            <span>{{this.formCompleteInfosFreela.value.description.length}} / 500</span>
+                            <span class="text-danger" *ngIf="this.formCompleteInfosFreela.value.description.length < 150">
+                                <p class="text-danger">Descrição muito curta ({{150 - this.formCompleteInfosFreela.value.description.length}} caracteres faltantes) </p>
+                            </span>
+                        </div> 
+                    </div>
+                    
+                    <input type="file" id="profilePhoto" #attachFile [hidden]="true"
+                            (change)="addFile($event.target.files)" accept="image/png, image/jpeg"
+                    >
+
+                    <div class="col-md-12" style="margin-bottom: 3%;" class="open-file" >
+                        <div (mouseenter)="removePhoto = true" (mouseleave)="removePhoto = false">
+                            <img src={{photoPreview}} class="photo-preview" [ngStyle]="{opacity: removePhoto ? '0.1' : '1'}">
+                            <div class="remove-image" *ngIf="removePhoto" >
+                                <i (click)="removeFile()" class="fas fa-trash-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <button type="button" class="btn add-photo" (click)="openAttachFile()">Adicionar Foto</button>
+                    </div>
+                    
+                </div>
+
+                <div class="col-md-12" style="margin-top: 5%; padding: 0;">
+                    <button type="submit" class="btn btn-block">
+                        <span *ngIf="!loader">Concluir</span>
+                        <app-loader [button]="true" *ngIf="loader"></app-loader>
+                    </button>
+                </div>
+            </form>
+
+            <form [formGroup]="formCompleteInfosClient" (ngSubmit)="completeClient()" *ngIf="user.type === 'Cliente'">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" name="profileTitle" class="form-complete" placeholder="Título do Perfil" formControlName="profileTitle">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea 
+                                placeholder="Descrição"
+                                rows="5" 
+                                minlength="150" 
+                                maxlength="500" 
+                                class="form-control form-complete" 
+                                id="description" 
+                                name="description" 
+                                formControlName="description"
+                                [ngStyle]="(this.formCompleteInfosFreela.value.description.length < 150) && {'border': '1px solid red'}"
+                            ></textarea>
+                            <span>{{this.formCompleteInfosClient.value.description.length}} / 500</span>
+                            <span class="text-danger" *ngIf="this.formCompleteInfosClient.value.description.length < 150">
+                                <p class="text-danger">Descrição muito curta ({{150 - this.formCompleteInfosClient.value.description.length}} caracteres faltantes)</p>
+                            </span>
+                        </div>
+                    </div>
+
+                    <input type="file" id="profilePhoto" #attachFile [hidden]="true"
+                            (change)="addFile($event.target.files)" accept="image/png, image/jpeg"
+                    >
+                    <div class="col-md-12" style="margin-bottom: 3%;" class="open-file" >
+                        <div (mouseenter)="removePhoto = true" (mouseleave)="removePhoto = false">
+                            <div class="photo-preview">
+                                <img src={{photoPreview}} [ngStyle]="{opacity: removePhoto ? '0.1' : '1'}">
+                            </div>
+                            <div class="remove-image" *ngIf="removePhoto" >
+                                <i (click)="removeFile()" class="fas fa-trash-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <button type="button" class="btn add-photo" (click)="openAttachFile()">Adicionar Foto</button>
+                    </div>
+                </div>
+
+                <div class="col-md-12" style="margin-top: 5%; padding: 0;">
+                    <button type="submit" class="btn btn-block">
+                        <span *ngIf="!loader">Concluir</span>
+                        <app-loader [button]="true" *ngIf="loader"></app-loader>
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+
+        
+    </div>
+</div>
+<app-footer2></app-footer2>

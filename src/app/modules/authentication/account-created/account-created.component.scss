@@ -1,0 +1,35 @@
+h2{
+    float: left;
+    width: 100%;
+    font-size: 25px;
+    font-weight: 700;
+    color: #2A2A2A;
+    margin-top: 100px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    color: #717171;
+    font-weight: 400;
+    font-size: 16px;
+    float: left;
+    width: 100%;
+}
+.result{
+    text-align: center;
+    margin-top: 100px;
+    h2{
+        margin-top: 10px;
+    }
+    a{
+        font-size: 16px;
+        float: left;
+        width: 100%;
+        span{
+            margin-left: 10px;
+        }
+        &:hover{
+            color: #D6B8FF;
+        }
+    }
+}

@@ -1,0 +1,87 @@
+.my-jobs{
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+    background: #EFEFEF;
+    button {
+        background-color: #BC9DD5;
+        :hover{
+            transform: scale(1.1);
+        }
+    }
+    .filters{
+        background: #FFF;
+        border-radius: 10px;
+        padding: 20px 20px;
+        float: left;
+        width: 100%;
+    }
+    
+    .skills{
+        border-radius: 10px;
+        padding: 20px 10px;
+        background: #FFF;
+        margin-top: 20px;
+        float: left;
+        width: 100%;
+        h2{
+            float: left;
+            width: 100%;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        span{
+            text-transform: uppercase;
+            background: #363636;
+            margin-bottom: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: 300;
+            font-size: 14px;
+            padding: 8px;
+            color: #FFF;
+            width: 100%;
+            float: left;
+        }
+    }
+
+
+    .actual-jobs{
+        border-radius: 10px;
+        padding: 40px 30px;
+        background: #FFF;
+        
+        float: left;
+        width: 100%;
+        h2{
+            margin-bottom: 20px;
+            color: #363636;
+            font-size: 25px;
+            float: left;
+            width: 100%;
+        }
+    }
+    .tenders{
+        border-radius: 10px;
+        padding: 40px 30px;
+        background: #FFF;
+        margin-top: 40px;
+        float: left;
+        width: 100%;
+        h2{
+            margin-bottom: 20px;
+            color: #363636;
+            font-size: 25px;
+            float: left;
+            width: 100%;
+        }
+        .job{
+            border-bottom: 1px solid #DFDFDF;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            float: left;
+            width: 100%;
+        }
+    }
+}

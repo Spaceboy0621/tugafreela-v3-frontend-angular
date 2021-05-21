@@ -1,0 +1,110 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="editProposal" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="proposal shadow">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="text-title">{{jobDetails.title}}</h2>
+                            <p class="text-desc">
+                                Proposta
+                            </p>
+                            <textarea 
+                                [(ngModel)]="proposalDescription" 
+                                id="proposalDescription" 
+                                name="proposalDescription" 
+                                rows="10">
+                            </textarea>
+                            <h3 *ngIf="jobDetails.type === 'Fixo'">Em quanto tempo finaliza o projeto? (dias)</h3>
+                            <h3 *ngIf="jobDetails.type === 'Hora'">Em quanto tempo finaliza o projeto? (horas)</h3>
+                            <input 
+                                [(ngModel)]="proposalTerm" 
+                                type="text" 
+                                id="proposalTerm" 
+                                name="proposalTerm" 
+                                placeholder="Ex: 2 a 3 dias"
+                            >
+                        </div>
+                    </div>
+                </div> <!-- /.proposal-->
+
+                <div class="budget shadow">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Orçamento</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="total">Valor total</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalValueTotal" 
+                                    id="proposalValueTotal" 
+                                    name="proposalValueTotal" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposal-value-total" 
+                                    aria-describedby="total1" 
+                                    (focusout)="calculateValue()"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="total">Custo de Serviço</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalServiceFare" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposalServiceFare" 
+                                    name="proposalServiceFare"
+                                    aria-describedby="total1"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="total">Valor que irá receber</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalValueGain" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposalValueGain" 
+                                    name="proposalValueGain"
+                                    aria-describedby="total1"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.budget-->
+
+                <div class="buttons">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-confirm " (click)="editProposal()">EDITAR PROPOSTA</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-cancel" routerLink="/my-jobs">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<app-footer2 *ngIf="ready"></app-footer2>

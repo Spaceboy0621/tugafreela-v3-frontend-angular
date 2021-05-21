@@ -1,0 +1,47 @@
+<div class="bank-account" *ngIf="ready">
+    <div class="content">
+        <div class="infos">
+            <div class="number">{{numberToShow}}</div>
+            <div class="name">{{bank_account.name_of_holder | uppercase}}</div>
+        </div>
+        <div class="nif">
+            <p><b>NIF: </b>{{bank_account.owner.nif}}</p>
+        </div>
+    </div>
+    
+    <div class="form-check check-primary" *ngIf="page === 'financial'">
+      <input 
+        class="form-check-input card-radio" 
+        type="radio" 
+        name="card-radio" 
+        [id]="'primary' + bank_account.id" 
+        [value]="bank_account.id"
+        (change)="setAsPrimary($event)"
+        [checked]="bank_account.primary"
+      >
+      <label>Principal</label>
+    </div>
+
+    <div class="options">
+        <i 
+          *ngIf="page === 'financial'"
+          class="fas fa-credit-card" (click)="verify()" 
+          [ngStyle]="{color: bank_account.checked ? 'green' : 'red', 'cursor': bank_account.checked ? 'not-allowed' : 'pointer'}"
+          placement="top" ngbTooltip="Validar Conta"
+          ></i>
+        <i *ngIf="page === 'financial'" class="fas fa-trash" (click)="deleteAccount()" style="color: #C10505;" placement="top" ngbTooltip="Excluir Conta"></i>
+        <i *ngIf="page === 'financial'" class="fas fa-pen" (click)="editAccount()" style="color: #d6b8ff;" placement="top" ngbTooltip="Editar Conta"></i>
+
+        <div class="form-check" *ngIf="page !== 'financial'">
+          <input 
+            class="form-check-input card-radio" 
+            type="radio" 
+            name="card-radio" 
+            [id]="'account' + bank_account.id" 
+            [value]="bank_account.id"
+            (change)="selectCard()"
+          >
+        </div>
+    </div>
+    
+</div>

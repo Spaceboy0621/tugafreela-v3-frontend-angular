@@ -1,0 +1,225 @@
+#publicProfile{
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+    background: #EFEFEF;
+    .info-add{
+        padding: 20px 20px 0;
+        border-radius: 10px;
+        background: #FFF;
+        float: left;
+        width: 100%;
+        h2{
+            float: left;
+            width: 100%;
+            font-size: 22px;
+            font-weight: 500;
+            color: #363636;
+        }
+        ul{
+            list-style: none;
+            float: left;
+            width: 100%;
+            padding: 0;
+            li {
+                float: left;
+                width: 100%;
+                padding: 3px 0;
+                font-size: 14px;
+                font-weight: 300;
+                color: #363636;
+            }
+        }
+
+        button {
+            float: left;
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 300;
+            padding: 15px 40px;
+            background: #363636;
+            width: auto !important;
+        }
+    }
+
+    .profile{
+        float: left;
+        width: 100%;
+        .resume{
+            padding: 10px 10px 30px;
+            border-radius: 10px;
+            background: #FFF;
+            position: relative;
+            float: left;
+            width: 100%;
+            img{
+                border: 4px solid #D6B8FF;
+                border-radius: 50%;
+                height: 90px;
+                width: 90px;
+                float: left;
+            }
+            a{
+                float: right;
+                font-size: 14px;
+                cursor: pointer;
+                color: #D6B8FF;
+                font-weight: 300;
+                margin-right: 10px;
+                &.logout{
+                    position: absolute;
+                    top: calc(50%);
+                    right: 10px;
+                }
+            }
+            h2{
+                margin-bottom: 3px;
+                font-weight: 600;
+                color: #363636;
+                margin-top: 0px;
+                font-size: 25px;
+                float: left;
+                width: 100%;
+            }
+            p{
+                float: left;
+                width: 100%;
+                font-size: 16px;
+                color: #797979;
+                margin-bottom: 3px;
+            }
+            ngb-rating{
+                float: left;
+                font-size: 20px;
+                color: #FFC106;
+                outline: none;
+                span{
+                    margin-right: 3px;
+                }
+            }
+            span {
+                float: left;
+                font-size: 14px;
+                margin-top: 2px;
+                margin-left: 5px;
+            }
+            .skills{
+                margin-top: 15px;
+                float: left;
+                width: 100%;
+                span{
+                    text-transform: uppercase;
+                    background: #363636;
+                    text-align: center;
+                    border-radius: 5px;
+                    margin: 0 5px 0 0;
+                    padding: 4px 10px;
+                    font-weight: 300;
+                    font-size: 12px;
+                    color: #FFF;
+                    float: left;
+                }
+            }
+        }
+
+        .feedbacks{
+            padding: 20px 20px 0;
+            border-radius: 10px;
+            background: #FFF;
+            margin-top: 20px;
+            float: left;
+            width: 100%;
+            h2{
+                float: left;
+                width: 100%;
+                font-size: 22px;
+                font-weight: 500;
+                color: #363636;
+                margin-bottom: 30px;
+            }
+    
+            .feedback{
+                float: left;
+                width: 100%;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #F9F9F9;
+                img{
+                    float: left;
+                }
+                h3{
+                    margin-bottom: 3px;
+                    margin-top: 8px;
+                    font-size: 16px;
+                    float: left;
+                }
+                svg{
+                    float: left;
+                    margin-left: 2px;
+                }
+                p{
+                    margin: 0;
+                    float: left;
+                    width: 100%;
+                    font-size: 14px;
+                    color: #797979;
+                    font-weight: 300;
+                    &.date{
+                        text-align: center;
+                        font-size: 12px;
+                    }
+                }
+                span{
+                    float: left;
+                    font-size: 14px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .about-me{
+            padding: 20px 20px 30px;
+            border-radius: 10px;
+            background: #FFF;
+            margin-top: 20px;
+            float: left;
+            width: 100%;
+            h2{
+                float: left;
+                width: 100%;
+                font-size: 22px;
+                font-weight: 500;
+                color: #363636;
+                margin-top: 10px;
+                margin-bottom: 30px;
+            }
+
+            p{
+                margin: 0;
+                float: left;
+                width: 100%;
+                font-size: 14px;
+                color: #797979;
+                font-weight: 300;
+            }
+
+            ul{
+                padding: 0;
+                float: left;
+                width: 100%;
+                margin: 10px;
+                list-style: none;
+                li{
+                    margin: 0;
+                    float: left;
+                    width: 100%;
+                    font-size: 14px;
+                    color: #797979;
+                    font-weight: 300;
+                }
+            }
+            
+        }
+
+    }
+}

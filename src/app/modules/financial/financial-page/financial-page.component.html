@@ -1,0 +1,72 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<div class="financial-page shadow">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="active">
+
+    <li ngbNavItem="cards">
+      <a ngbNavLink *ngIf="ready">Cartões</a>
+
+      <ng-template ngbNavContent>
+        <div class="head">
+          <h2 *ngIf="addOrEditCard === ''">Cartões de Crédito/Débito</h2>
+          <button class="btn add-credit-card" (click)="addCard()" *ngIf="addOrEditCard === ''">Adiconar Cartão</button>
+        </div>
+
+          <app-form-credit-card [type]="addOrEditCard" [credit_card]="creditCardToEdit" *ngIf="addOrEditCard !== ''"></app-form-credit-card>   
+          <div *ngFor="let item of credit_cards">
+            <app-financial-credit-card (editCardEvent)="editCard($event)" [credit_card]="item" *ngIf="addOrEditCard === ''"></app-financial-credit-card>
+          </div>
+      </ng-template>
+    </li>
+
+    <li ngbNavItem="bank" *ngIf="ready" class="select">
+      <a ngbNavLink>Conta Bancária</a>
+
+      <ng-template ngbNavContent>
+        <div class="head">
+          <h2 *ngIf="addOrEditBankAccount === ''">Contas Bancárias</h2>
+        <button class="btn add-bank-account" (click)="addBankAccount()" *ngIf="addOrEditBankAccount === ''">Adiconar Conta</button>
+        </div>
+        
+        <app-form-bank-account [typeForm]="addOrEditBankAccount" [bank_account]="bankAccountToEdit"  *ngIf="addOrEditBankAccount !== ''" (sendActiveNav)="setBankTabActive($event)"></app-form-bank-account>
+        <div *ngFor="let item of bank_accounts">
+          <app-financial-bank-account (editAccountEvent)="editBankAccount($event)" *ngIf="addOrEditBankAccount === ''" [bank_account]="item"></app-financial-bank-account>
+        </div>
+      </ng-template>
+    </li>
+
+    <li ngbNavItem>
+      <a ngbNavLink *ngIf="ready">Histórico de Pagamentos</a>
+      <ng-template ngbNavContent>
+        <h2>Histórico de Pagamentos</h2>
+          <app-payment-history></app-payment-history>
+      </ng-template>
+    </li>
+
+    <li ngbNavItem>
+      <a ngbNavLink *ngIf="ready">Histórico de Reembolsos</a>
+      <ng-template ngbNavContent>
+        <h2>Histórico de Reembolsos</h2>
+          <app-refunds-history></app-refunds-history>
+      </ng-template>
+    </li>
+
+    <li ngbNavItem>
+      <a ngbNavLink *ngIf="ready && user.type === 'Freelancer'">Minhas Assinaturas</a>
+      <ng-template ngbNavContent>
+        <h2>Minhas Assinaturas</h2>
+        <app-subscriptions></app-subscriptions>
+      </ng-template>
+    </li>
+
+    <!-- <li ngbNavItem>
+      <a ngbNavLink class="verify-payment" *ngIf="ready">Verificação de Método de Pagamento</a>
+      <ng-template ngbNavContent>
+          <app-verify-payment></app-verify-payment>
+      </ng-template>
+    </li> -->
+
+</ul>
+<div [ngbNavOutlet]="nav"></div>
+</div>
+
+<app-footer2 *ngIf="ready"></app-footer2>

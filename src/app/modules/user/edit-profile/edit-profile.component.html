@@ -1,0 +1,98 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<section id="editProfile" class="shadow">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="profile shadow" *ngIf="user">
+                    <h2>Editar Perfil</h2>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Nome</label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="Digite seu nome..." [(ngModel)]="user.name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastName">Apelido</label>
+                                            <input type="text" class="form-control" id="lastName" name="nick"
+                                                placeholder="Digite seu sobrenome..." [(ngModel)]="user.nick">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="professionalDescription">Título profissional</label>
+                                    <input type="text" class="form-control" id="professionalDescription"
+                                        name="professional_description" placeholder="Ex: UI Designer"
+                                        [(ngModel)]="user.professional_description">
+                                </div>
+                            </div>
+                            <div class="col-md-6 photo">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4">
+                                        <img id="image" src="{{ user.getPhoto() }}">
+                                        <input type="file" id="profilePhoto" #profilePhoto [hidden]="true"
+                                            (change)="changePhoto($event.target.files)">
+                                        <button class="btn" (click)="openPhotoUpload()" *ngIf="user.photo">Alterar Foto</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="about">Sobre você</label>
+                                    <textarea name="about" id="about" class="form-control" rows="7"
+                                        placeholder="Conte sobre você..." [(ngModel)]="user.about"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="user.type == 'Freelancer'">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="skills">Áreas de interesse</label>
+                                    <angular2-multiselect [data]="categoriesData" [(ngModel)]="categoriesSelected" name="categories" id="categories"
+                                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event, 3, true)"
+                                        (onDeSelect)="OnItemDeSelect($event, true)">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="skills">Habilidades</label>
+                                    <angular2-multiselect [data]="skillsData" [(ngModel)]="skillsSelected" name="skills" id="skills"
+                                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event, 10, false)"
+                                        (onDeSelect)="OnItemDeSelect($event, false)">
+                                    </angular2-multiselect>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button (click)="modalConfirm = true" class="btn btn-save">SALVAR ALTERAÇÕES</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer2></app-footer2>
+
+<app-modal-confirm
+    title=""
+    text="Seu perfil só pode ser editado uma vez ao ano. Tenha atenção na edição que está sendo feita e confirme todos os dados antes de prosseguir."
+    text2="Tem certeza que deseja realizar as alterações?"
+    textConfirm="Salvar"
+    textCancel="Cancelar"
+    (sendChooseEvent)="modalEvent($event)"
+    *ngIf="modalConfirm"
+></app-modal-confirm>

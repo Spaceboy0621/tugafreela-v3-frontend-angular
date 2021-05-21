@@ -1,0 +1,141 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" [routerLink]="menu === 'no-logged' ? [''] : ['/dashboard']">
+        <img src="assets/img/logo-tuga.png" alt="Logo Freela" loading="lazy">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="menu == 'no-logged'">
+        <div class="form-group search">
+            <a (click)="search()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+            </a>
+            <input type="text" class="form-control" [placeholder]="searchText">
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <a class="nav-link" routerLink="/how-works">Como Funciona? </a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" routerLink="/signup">Cadastre-se</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Entrar</a>
+            </li>
+            <li class="nav-item">
+            <a class="btn btn-rounded" href="#" routerLink="/signup/Cliente">PUBLIQUE UM PROJETO</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="menu == 'logged' && user && user.complete">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/dashboard">Meu Dashboard</a>
+            </li>
+            <li class="nav-item" *ngIf="user.isFreela()">
+                <a class="nav-link" routerLink="/search/job">Encontre Jobs</a>
+            </li>
+            <li class="nav-item" *ngIf="!user.isFreela()">
+                <a class="nav-link" [routerLink]="['/job/new']" >Publicar Job</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/my-financial']" >Meu Financeiro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/faq']" >Ajuda</a>
+            </li>
+        </ul>
+        <div class="form-group search" *ngIf="showSearch">
+            <a (click)="search()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                <path fill-rule="evenodd"
+                    d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                </svg>
+            </a>
+            <input type="text" class="form-control" [placeholder]="searchText">
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" (click)="openMessages()" style="cursor: pointer;">
+                    <svg id="chat" xmlns="http://www.w3.org/2000/svg" width="23.65" height="23.641" viewBox="0 0 48.65 48.641">
+                        <path id="Caminho_1556" data-name="Caminho 1556" d="M33.459,120.37a18.225,18.225,0,0,1-8.094-1.891l-3.9,1.568a4.633,4.633,0,0,1-4.931-1.017,4.583,4.583,0,0,1-1.017-4.931l1.568-3.914a18.218,18.218,0,0,1-.855-14.136H6.08A6.086,6.086,0,0,0,0,102.13v18.24a6.086,6.086,0,0,0,6.08,6.08v7.6a1.514,1.514,0,0,0,.884,1.378,1.483,1.483,0,0,0,.637.142,1.527,1.527,0,0,0,.988-.361L18.8,126.45H33.44a6.086,6.086,0,0,0,6.08-6.08v-1.055A18.3,18.3,0,0,1,33.459,120.37Z" transform="translate(0 -86.93)" fill="#dbdbdb"/>
+                        <path id="Caminho_1557" data-name="Caminho 1557" d="M207.2.05a15.2,15.2,0,0,0-13,23.085l-2.09,5.225A1.527,1.527,0,0,0,192.447,30a1.56,1.56,0,0,0,1.074.447,1.525,1.525,0,0,0,.57-.114l5.235-2.09a15.022,15.022,0,0,0,7.885,2.2A15.2,15.2,0,1,0,207.2.05Z" transform="translate(-173.76 -0.05)" fill="#d6b8ff"/>
+                        <g id="Grupo_140" data-name="Grupo 140" transform="translate(27.36 9.12)">
+                          <path id="Caminho_1558" data-name="Caminho 1558" d="M298.64,99.09h-9.12a1.52,1.52,0,0,1,0-3.04h9.12a1.52,1.52,0,0,1,0,3.04Z" transform="translate(-288 -96.05)" fill="#fafafa"/>
+                          <path id="Caminho_1559" data-name="Caminho 1559" d="M295.6,163.09h-6.08a1.52,1.52,0,0,1,0-3.04h6.08a1.52,1.52,0,1,1,0,3.04Z" transform="translate(-288 -153.97)" fill="#fafafa"/>
+                        </g>
+                    </svg>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="openNotifications()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18.043" height="21.845" viewBox="0 0 38.043 41.845">
+                        <g id="notification" transform="translate(0 0)">
+                        <path id="Caminho_1552" data-name="Caminho 1552" d="M141.953,453.706A7.144,7.144,0,0,0,148.941,448H134.965a7.145,7.145,0,0,0,6.988,5.706Zm0,0" transform="translate(-122.932 -411.861)" fill="#d6b8ff"/>
+                        <path id="Caminho_1553" data-name="Caminho 1553" d="M32.358,61.686l-.023,0A13.33,13.33,0,0,1,19.02,48.374a13.2,13.2,0,0,1,1.273-5.642c-.419-.04-.843-.064-1.273-.064A13.314,13.314,0,0,0,5.706,55.982v5.3a12.753,12.753,0,0,1-4.542,9.763A3.328,3.328,0,0,0,.118,74.464a3.489,3.489,0,0,0,3.42,2.44H34.494a3.487,3.487,0,0,0,3.477-2.638,3.334,3.334,0,0,0-1.135-3.256,12.657,12.657,0,0,1-4.477-9.324Zm0,0" transform="translate(0.001 -42.668)" fill="#d6b8ff"/>
+                        <path id="Caminho_1554" data-name="Caminho 1554" d="M5.683,61.686l.023,0A13.33,13.33,0,0,0,19.02,48.374a13.2,13.2,0,0,0-1.273-5.642c.419-.04.843-.064,1.273-.064A13.314,13.314,0,0,1,32.335,55.982v5.3a12.753,12.753,0,0,0,4.542,9.763,3.328,3.328,0,0,1,1.046,3.416A3.489,3.489,0,0,1,34.5,76.9H3.547A3.487,3.487,0,0,1,.07,74.266,3.334,3.334,0,0,1,1.206,71.01a12.657,12.657,0,0,0,4.477-9.324Zm0,0" transform="translate(0.001 -42.668)" fill="#d6b8ff"/>
+                        </g>
+                    </svg>                  
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/me/profile">
+                    <img class="userPhoto" src="{{user.getPhoto()}}" width="64" alt="">
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id="messages" [hidden]="!showMessages">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14">
+        <path id="Polígono_1" data-name="Polígono 1" d="M12,0,24,14H0Z" fill="#6c7a89"/>
+    </svg>      
+    <header>
+        <span>MENSAGENS</span>
+        <a class="txt-color-purple" [routerLink]="['/chats']">Ver todas</a>
+    </header>
+    <div class="content">
+        <div class="item item-message" *ngFor="let message of messagesNotRead" [routerLink]="['/chats/', message.chat.id]" style="cursor: pointer;">
+            <img id="userPhotoSmall" src={{message.sender.getPhoto()}} width="34" alt="">
+            <div>
+                <h3>{{message.sender.name}}</h3>
+                <span>{{message.message}}</span>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div id="notifications" [hidden]="!showNotifications">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="14" viewBox="0 0 24 14">
+        <path id="Polígono_1" data-name="Polígono 1" d="M12,0,24,14H0Z" fill="#6c7a89"/>
+    </svg> 
+        
+    <header>
+        <span>NOTIFICAÇÕES</span>
+        <a class="txt-color-purple" [routerLink]="['/all-notifications']">Ver todas</a>
+    </header>
+    <div class="content">
+        <div class="item item-notify" *ngFor="let item of notifications" [id]="item.link" (click)="goToMessage($event, item.id)" style="cursor: pointer;">
+            <h3 [id]="item.link">
+                <span [id]="item.link">{{ item.text }}</span> 
+                <i [id]="item.link">{{ item.getDate() }}</i>
+            </h3>
+            <p [id]="item.link">{{ item.job.title }}</p>
+        </div>
+    </div>
+</div>

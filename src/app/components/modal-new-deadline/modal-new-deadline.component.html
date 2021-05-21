@@ -1,0 +1,32 @@
+<div class="bg">
+  <div class="deadline-modal">
+    <h2>{{title}}</h2>
+
+    <div class="row">
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+        <div class="form-group col-sm-12 col-md-6">
+          <label>Prazo anterior (Em dias)</label>
+          <input type="number" [(ngModel)]="actual_deadline" class="form-control" readonly>   
+        </div>
+        <span>Expira em:  {{expires_deadline | date:'dd/MM/yyyy'}}</span>    
+      </div>
+      
+    </div>
+
+    <div class="row">
+      <div style="display: flex; justify-content: flex-start; align-items: center;">
+        <div class="form-group col-sm-12 col-md-6">
+          <label>Novo Prazo (Em dias)</label>
+          <input type="number" [(ngModel)]="new_deadline" class="form-control" (focusout)="calcuateExpires()" (keyup)="calcuateExpires()" [readonly]="type === 'response'">
+          <span class="text-danger" *ngIf="newDeadlineInvalid">Novo prazo deve ser maior que o prazo atual</span>
+        </div>
+        <span>Expira em: {{expires_newDeadline | date:'dd/MM/yyyy'}}</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-accept" (click)="send('accept')">{{type === 'request' ? 'Solcitar Prazo' : 'Aceitar Prazo'}}</button>
+      <button class="btn btn-recuse" (click)="send('recuse')">{{type === 'request' ? 'Cancelar' : 'Recusar Prazo'}}</button>
+    </div>
+  </div>
+</div>

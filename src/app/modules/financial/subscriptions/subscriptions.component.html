@@ -1,0 +1,21 @@
+<div class="subs-card">
+  <div class="title">
+    <p>Plano <b>PREMIUM</b></p>
+  </div>
+  <div class="content">
+    Plano PREMIUM contratado no valor de € 15 mensais <br><br>
+    A assinatura é cobrada sempre no primeiro dia útil de cada mês
+  </div>
+  <div class="actions">
+    <button class="btn btn-red" *ngIf="user.premium" (click)="modalCancel = true">Cancelar Plano</button>
+    <button class="btn btn-buy" *ngIf="!user.premium" (click)="buyPlan()">Comprar Plano</button>
+  </div>
+</div>
+
+<app-modal-confirm
+  *ngIf="modalCancel"
+  title="Deseja mesmo cancelar o plano PREMIUM?"
+  text="Ao cancelar o plano você perderá o beneficio de poder enviar proposta antes de qualquer um"
+  textCancel="Cancelar Plano"
+  (sendChooseEvent)="cancelPlan($event)"
+></app-modal-confirm>

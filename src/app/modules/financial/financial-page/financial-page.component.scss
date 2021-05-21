@@ -1,0 +1,100 @@
+h2 {
+    font-size: 1.5rem;
+    color: #363636;
+    font-weight: 600;
+    margin-top: 2%;
+}
+.head {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    h2 {
+        font-size: 1.5rem;
+        color: #363636;
+        font-weight: 600;
+        margin-top: 2%;
+    }
+    .add-credit-card, .add-bank-account {
+        background: #E1B9FF;
+        color: white;
+        margin-left: 2%;
+    }
+}
+
+.nav {
+    display: inline-flex;
+    margin-top: 5%;
+
+    .verify-payment {
+        max-width: 22ch;
+    }
+    .active {
+        background: #D6B8FF;
+    }
+    a {
+        color: #363636;
+        font-weight: 600;
+        text-align: center;
+        margin-right: 1px solid #363636;
+    }
+
+}
+.financial-page {
+    width: 90%;
+    height: 800px;
+    margin-left: 5%;
+    padding: 5%;
+    margin-top: 10%;
+    margin-bottom: 15%;
+    background: #fff;
+    padding-bottom: 2%;
+    border-radius: 10px;
+}
+.bank-account {
+    background: #EFEFEF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    width: 45%;
+    margin-top: 5%;
+    margin-left: 5%;
+    padding: 2%;
+    height: max-content;
+    .infos {
+        width: 80%;
+    }
+
+    .options {
+        width: 10%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: #d6b8ff;
+     }
+}
+
+.fas:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+@media(min-width: 1600px) {
+    .financial-page {
+        width: 60%;
+        margin-left: 20%;
+    }
+}
+
+// @media(min-width: 576px) and (max-width: 1599px) {
+//     .dash, .cards {
+//         width: 90%;
+//         margin-left: 5%;
+//     }
+// }
+
+@media(max-width: 575px) {
+    .financial-page {
+        width: 100%;
+    }
+}

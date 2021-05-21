@@ -1,0 +1,147 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<h2>Mensagens</h2>
+<div class="chat-container row">
+<p *ngIf="chats.length === 0" style="text-align: center;"><i >Você não nenhuma conversa com outro usuário</i></p>
+
+    <!--Side Bar-->
+    <div class="col-md-4">
+        <div class="sideBar-container shadow" *ngIf="sideBarReady">
+            <div class="sideBar-chat" *ngFor="let chat of chats" [id]="chat.id" (click)="loadChat($event)">
+                <div class="div-img" [id]="chat.id">
+                    <img 
+                        class="userPhoto" 
+                        src="{{user.id === chat.participant1.id ? chat.participant2.getPhoto() : chat.participant1.getPhoto()}}"
+                        >
+                </div>
+        
+                <div class="div-info" [id]="chat.id">
+                    <div class="col-md-12 name" [id]="chat.id">
+                        {{user.id === chat.participant1.id ? chat.participant2.name : chat.participant1.name}}
+                    </div>
+                    <div class="col-md-12 msg-prev" [id]="chat.id" *ngIf="chat.messages.length !== 0">
+                        {{chat.messages[chat.messages.length - 1].message}} ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Principal -->
+    <div class="col-md-8" *ngIf="chatReady">
+        <div class="main-chat shadow">
+            <div class="row main-chat-img">
+                <div class="div-img">
+                    <img 
+                        class="userPhotoBig" 
+                        src="{{user.id === chat.participant1.id ? chat.participant2.getPhoto() : chat.participant1.getPhoto()}}"
+                    >
+                </div>
+                <div class="col-md-8 name">
+                    {{user.id === chat.participant1.id ? chat.participant2.name : chat.participant1.name}}
+                    <!-- <div class="search">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                        <img src="../../../assets/img/icons/search.svg">
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="messages" *ngIf="chat.messages.length !== 0">
+                <div *ngFor="let message of chat.messages" id="chat-messages">
+
+                    <div class="side-secondary" *ngIf="message.sender !== user.id">
+                        <div class="bubble-secondary shadow">
+                            <p>{{message.message}}</p>
+                            <div *ngIf="message.attachments && message.attachments.length > 0">
+                                <p *ngFor="let attach of message.attachments">
+                                    <a *ngIf="attach.formats && attach.formats !== null" href={{getUrlPhoto(attach.formats.small.url)}} target="_blank">
+                                        <img class="image-chat" src={{getUrlPhoto(attach.formats.small.url)}}  >
+                                    </a>
+                                    <a *ngIf="!attach.formats || attach.formats === null" href={{getUrlPhoto(attach.url)}} target="_blank">
+                                        {{attach.name}}
+                                    </a>
+                                </p>
+                                
+                            </div>
+                            
+                            <div class="viwewd-div" [style.color]="message.read_at !== null ? '#48d1cc' : '#dcdcdc'">
+                                <svg class="viwewd" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                    <path d="M8.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14l.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+                                </svg>
+                            </div>
+                            
+                        </div>
+                        <ngb-rating [rate]="message.favorite ? 1 : 0" [max]="1" (click)="setFavorite(message)"></ngb-rating>
+
+                    </div>
+                                        
+                    <div class="side-main" *ngIf="message.sender === user.id">
+                        <div class="bubble-main shadow">
+                            <p>{{message.message}}</p>
+                            <div *ngIf="message.attachments && message.attachments.length > 0">
+                                <p *ngFor="let attach of message.attachments">
+                                    <a *ngIf="attach.formats && attach.formats !== null" href={{getUrlPhoto(attach.formats.small.url)}} target="_blank">
+                                        <img class="image-chat" src={{getUrlPhoto(attach.formats.small.url)}}  >
+                                    </a>
+                                    <a *ngIf="!attach.formats || attach.formats === null" href={{getUrlPhoto(attach.url)}} target="_blank">
+                                        {{attach.name}}
+                                    </a>
+                                </p>
+                                
+                            </div>
+                            <div class="viwewd-div" [style.color]="message.read_at !== null ? '#48d1cc' : '#dcdcdc'">
+                                <svg class="viwewd" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                    <path d="M8.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14l.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+                                </svg>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <form (onsubmit)="sendMessage()" class="shadow-sm">
+                
+                <div class="list-emojis" *ngIf="showEmojis">
+                    <div>
+                      <i class="fas fa-times" (click)="showEmojis = false"></i>
+                    </div>
+                    <angular-emojis class="emoji" *ngFor="let item of emojis" [name]=item.name size="20" (click)="addEmoji($event)"></angular-emojis>
+                </div>
+
+                <div class="form-group send-msg-form">
+                    <i class="far fa-smile-beam fa-lg" (click)="showEmojis = true"></i>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        name="messageToSend" 
+                        id="messageToSend" 
+                        [(ngModel)]="messageToSend" 
+                        placeholder="Escreva sua mensagem..."
+                        [style.border]="inputHasFocus && !messageToSendValid ? '1px solid red' : 'none'"
+                        (focusout)="inputHasFocus =  (!messageToSend || messageToSend === '') ? true : false"
+                    >
+                    <i (click)="openAttachFile()" class="fas fa-paperclip" style="color: #D6B8FF;"></i>
+                    <input 
+                        type="file" id="profilePhoto" #attachFile [hidden]="true"
+                        (change)="addFiles($event.target.files)" multiple
+                    >
+
+                    <button type="submit" class="btn" (click)="sendMessage()">
+                        <img src="../../../assets/img/icons/Send.svg">
+                    </button>
+                </div>
+                <div class="files-attached">
+                    <ul>
+                        <li *ngFor="let file of filesAttached; let i = index;">
+                            <span>{{ file.name }}</span>
+                            <i (click)="removeFile(i)" class="fas fa-trash-alt"></i>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<app-footer2></app-footer2>

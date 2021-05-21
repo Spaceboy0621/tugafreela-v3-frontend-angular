@@ -1,0 +1,91 @@
+.rating {
+    float: left;
+    width: 100%;
+    padding: 50px 0;
+    background: #EFEFEF;
+    .nameRate {
+        color: #D6B8FF;
+    }
+    .userPhoto {
+        border: 4px solid #D6B8FF;
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        float: left;
+    }
+    .job-info{
+        background: #FFF;
+        border-radius: 10px;
+        padding: 20px 20px;
+        float: left;
+        width: 100%;
+        h3{
+            font-size: 18px;
+            float: left;
+            width: 100%;
+            cursor: pointer;
+        }
+        p{
+            float: left;
+            font-weight: 300;
+            color: #363636;
+            margin: 0 15px 0 0;
+            margin-top: 2px;
+        }
+    }
+
+    .star {
+        font-size: 2rem;
+        color: #FFC107;;
+    }
+    
+    form {
+        float: left;
+        width: 100%;
+        padding: 50px;
+        background: #FFF;
+        border-radius: 10px;
+        .person {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 10%;
+            height: min-content;
+            p {
+                margin-left: 5%;
+            }
+        }
+        label, h3{
+            margin: 0;
+            float: left;
+            width: 100%;
+            color: #363636;
+            margin-bottom: 5px;
+            &.form-check-label{
+                margin-right: 25px;
+                margin-top: 8px;
+                font-size: 16px;
+            }
+        }
+        textarea{
+            float: left;
+            width: 100%;
+            resize: none;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            border: 1px solid #D6B8FF;
+        }
+        .form-group {
+            margin-top: 20px;
+        }
+        button {
+            border-radius: 5px;
+            padding: 4%;
+            
+        }
+    }
+    
+}
+

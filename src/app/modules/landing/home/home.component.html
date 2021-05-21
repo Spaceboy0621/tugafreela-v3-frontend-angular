@@ -1,0 +1,270 @@
+<app-header menu="no-logged" showSearch="true"></app-header>
+
+<section class="banner-home" style="background-image: url('assets/img/slide1.jpg');">
+    <div class="data">
+        <div class="text">
+            <h2>
+                Contrate freelancers<br>
+                especializados para qualquer<br>
+                trabalho, on-line.
+            </h2>
+            <button class="tf-btn btn-purple" routerLink="/signup/Cliente">QUERO CONTRATAR</button>
+            <button class="tf-btn btn-dark" routerLink="/signup/Freelancer">TRABALHE COMO FREELA</button>
+        </div>
+    </div>
+</section>
+
+<section id="howWorks">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12">
+                <h2 class="text-center font-title-home">Como funciona?</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-3 item">
+                <div>
+                    <img src="assets/img/cards/screen.png" class="img-fluid" alt="screen">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Publique o projeto</h5>
+                        <p class="card-text">Conte-nos em poucas palavras o que você precisa. É grátis e sem
+                            compromisso!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 item">
+                <div>
+                    <img src="assets/img/cards/hired.png" class="img-fluid" alt="screen">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Selecione o Profissional</h5>
+                        <p class="card-text">Receba propostas de excelentes freelancers. Escolha o melhor para o seu
+                            projeto.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 item">
+                <div>
+                    <img src="assets/img/cards/bank.png" class="img-fluid" alt="screen">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Faça o pagamento</h5>
+                        <p class="card-text">Você faz o pagamento com total garantia sobre o valor depositado e já
+                            começa a trabalhar :)</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 item">
+                <div>
+                    <img src="assets/img/cards/project.png" class="img-fluid" alt="screen">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Aceitar</h5>
+                        <p class="card-text">Receba o projeto concluído e libere o valor depositado ao freelancer.</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center buttons">
+            <div class="col col-md-3">
+                <a class="tf-btn btn-purple" routerLink="/signup/Cliente">PUBLIQUE UM PROJETO</a>
+            </div>
+            <div class="col col-md-3">
+                <a class="tf-btn btn-dark" routerLink="/signup/Freelancer">TRABALHE COMO FREELA</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="startJourney">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h1>Torne-se um profissional digital.</h1>
+                <h1>Torne-se um freelancer.</h1>
+                <p>Você pode melhorar a sua presença na web, vender online,
+                    vender nas redes sociais, criar conteúdos que mantenham seus clientes interessados ​​na sua marca e
+                    muito
+                    mais!</p>
+                <button class="tf-btn btn-purple" routerLink="/signup/Cliente">COMEÇE SUA JORNADA</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="results">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center font-title-home">Acompanhe nossos resultados!</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-3 item">
+                <img src="assets/img/cards/Outline1@2x.jpg" class="rounded mx-auto d-block" alt="screen">
+                <div class="card-body">
+                    <h2>{{quantityFreelancers * 1230}}</h2>
+                    <p>Freelancers</p>
+                </div>
+            </div>
+            <div class="col-md-3 item">
+                <img src="assets/img/cards/freelancer@2x.jpg" class="rounded mx-auto d-block" alt="screen">
+                <div class="card-body">
+                    <h2>{{quantityProjects * 260}}</h2>
+                    <p>Projetos Mensais</p>
+                </div>
+            </div>
+            <div class="col-md-3 item">
+                <img src="assets/img/cards/reuniao@2x.jpg" class="rounded mx-auto d-block" alt="screen">
+                <div class="card-body">
+                    <h2>{{quantityOnlineUsers * 631}}</h2>
+                    <p>Usuários Online</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center buttons">
+            <div class="col col-md-3">
+                <a class="tf-btn btn-purple" routerLink="/signup/Cliente">PUBLIQUE UM PROJETO</a>
+            </div>
+            <div class="col col-md-3">
+                <a class="tf-btn btn-dark" routerLink="/signup/Freelancer">TRABALHE COMO FREELA</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="testemunial">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col col-md-6">
+                <h2 class="text-center font-title-home">
+                    Milhares de pessoas acreditam em nossos <strong class="txt-color-purple">FREELANCES</strong>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10 slide">
+                <strong class="quot">&quot;</strong>
+                <div id="carouselTestemunial" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselTestemunial" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselTestemunial" data-slide-to="1"></li>
+                        <li data-target="#carouselTestemunial" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="../../../../assets/img/home/depositions/michael.png" class="img-fluid userPhoto" alt="Michael">
+                                </div>
+                                <div class="col-md-9">
+                                    <p>Oferecendo educação completa e colaboração, Tuga Freela trabalhou como um parceiro 
+                                        comprometido, investindo no sucesso do projeto. Eles investem em seu trabalho com os 
+                                        clientes, muito além de apenas um contracheque
+                                    </p>
+                                    <h3 class="txt-color-purple">Michael Gayed - Founder & CEO @HowUdish</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="../../../../assets/img/home/depositions/quin.jpg" class="img-fluid userPhoto" alt="Joey">
+                                </div>
+                                <div class="col-md-9">
+                                    <p>Tuga Freela e seus freelancers desenvolveram um aplicativo excepcional que aumentou 
+                                        oito vezes o uso da nossa ferramenta. Tudo na primeira semana de seu lançamento, 
+                                        o aplicativo ficou em segundo lugar em aplicativos de notícias no iTunes, 
+                                        só temos a agradecer
+                                    </p>
+                                    <h3 class="txt-color-purple">Quin Ocampo- Product Manager @iHeartMedia</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <img src="../../../../assets/img/home/depositions/jeff.png" class="img-fluid userPhoto" alt="Jeff">
+                                </div>
+                                <div class="col-md-9">
+                                    <p>Além de entregar um produto de primeira linha, Tuga Freela viabiliza um contato 
+                                        muito proativo e organizada no que diz respeito ao gerenciamento de projetos para 
+                                        seus freelancers. Além do desenvolvimento de softwares, eles forneceram 
+                                        um suporte de desenvolvimento de negócios inestimável - uma surpresa muito bem-vinda 
+                                        de um fornecedor neste setor
+                                    </p>
+                                    <h3 class="txt-color-purple">Jefferson Lyman - Founder & CEO @Tonquin</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela/12']" >
+                        <img src="assets/img/home/web-designer.png" class="img-fluid" alt="">
+                        <h3>Renove seu site</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela/6']">
+                        <img src="assets/img/home/app-mobile.png" class="img-fluid" alt="">
+                        <h3>Lance seu App Mobile</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela/4']">
+                        <img src="assets/img/home/visual-identity.png" class="img-fluid" alt="">
+                        <h3>Crie sua Id. Visual</h3>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela/13']">
+                        <img src="assets/img/home/writer.png" class="img-fluid" alt="">
+                        <h3>Tradutores/Escritores</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela/5']">
+                        <img src="assets/img/home/marketing.png" class="img-fluid" alt="">
+                        <h3>Marketing e Vendas</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <a [routerLink]="['/search/freela']">
+                        <img src="assets/img/home/more.png" class="img-fluid" alt="">
+                        <h3>E muito mais!</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer></app-footer>

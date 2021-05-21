@@ -1,0 +1,130 @@
+<app-header menu="logged" showSearch="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section id="sendProposal" *ngIf="ready">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="job shadow-sm">
+                    <h2>{{jobDetails.title}}</h2>
+                    <div class="job-desc" *ngIf="hideShow">
+                        <p style="font-weight: 500; font-size: 1rem;">Descrição: </p>
+                        <p>{{jobDetails.description}}</p>
+                    </div>
+                    <div class="value" *ngIf="hideShow">
+                        <p style="font-weight: 500; font-size: 1rem">Valor: </p>
+                        <p>{{jobDetails.valueJob | currency:'EUR':'symbol'}}</p>
+                    </div>
+                    <div class="time" **ngIf="hideShow && jobDetails.type === 'Hora'">
+                        <p style="font-weight: 500; font-size: 1rem">Tempo: </p>
+                        <p>{{jobDetails.hours}} horas</p>
+                    </div>
+                    <a (click)="hideShow = !hideShow">{{hideShow ? 'Menos detalhes' : 'Mais detalhes'}}</a>
+                </div>
+
+                <div class="proposal shadow-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Que tal fazer uma proposta a esse job?</h2>
+                            <p>
+                                Esta é sua proposta para o projeto e o lugar para se apresentar. Quanto mais completa for
+                                a sua primeira mensagem, mais possibilidades você terá de destacar-se. Siga as boas
+                                práticas para estar bem orientado.
+                            </p>
+                            <textarea 
+                                [(ngModel)]="proposalDescription" 
+                                id="proposalDescription" 
+                                name="proposalDescription" 
+                                rows="10">
+                            </textarea>
+                            <h3>Em quanto tempo finaliza o projeto? ({{jobDetails.type === 'Hora' ? 'Em horas' : 'Em dias'}})</h3>
+                            <input 
+                                [(ngModel)]="proposalTerm" 
+                                type="number" 
+                                id="proposalTerm" 
+                                name="proposalTerm" 
+                                placeholder="Ex: 2"
+                            >
+                        </div>
+                    </div>
+                </div> <!-- /.proposal-->
+
+                <div class="budget shadow-sm">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Orçamento</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="total">Valor total</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalValueTotal" 
+                                    id="proposalValueTotal" 
+                                    name="proposalValueTotal" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposal-value-total" 
+                                    aria-describedby="total1" 
+                                    (focusout)="calculateValue()"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="total">Custo de Serviço</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalServiceFare" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposalServiceFare" 
+                                    name="proposalServiceFare"
+                                    aria-describedby="total1"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="total">Valor que irá receber</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="total1">R$</span>
+                                </div>
+                                <input 
+                                    [(ngModel)]="proposalValueGain" 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="proposalValueGain" 
+                                    name="proposalValueGain"
+                                    aria-describedby="total1"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.budget-->
+
+                <div class="buttons">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button style="background: #E1B9FF;" class="btn btn-confirm" (click)="sendProposal()">ENVIAR ORÇAMENTO</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button style="background: #929292; color: white" class="btn btn-cancel">CANCELAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <app-owner></app-owner>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<app-footer *ngIf="ready"></app-footer>

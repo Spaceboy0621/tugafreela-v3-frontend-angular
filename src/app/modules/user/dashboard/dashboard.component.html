@@ -1,0 +1,229 @@
+<app-header menu="logged" [showSearch]="true"></app-header>
+<app-loader *ngIf="!ready"></app-loader>
+<section class="my-jobs" *ngIf="ready">
+
+
+    <div class="cards cards-freela" *ngIf="user.type === 'Freelancer'">
+        <div class="gain shadow">
+            <img src="../../../../../assets/img/dashboard/1.png" >
+            <section>
+                <span class="title">{{user.freelancer_earning | currency:'EUR':'symbol'}}</span><br>
+                <span class="sub-title">Seus Ganhos</span>
+            </section>
+        </div>
+        <div class="send-proposals shadow">
+            <img src="../../../../../assets/img/dashboard/2-freela.png" >
+            <section>
+                <span class="title">{{proposals.length}}</span><br>
+                <span class="sub-title">Propostas Enviadas</span>
+            </section>
+        </div>
+        <div class="accept-proposals shadow">
+            <img src="../../../../../assets/img/dashboard/check.png" >
+            <section>
+                <span class="title">{{proposalsFreelaAccepted.length}}</span><br>
+                <span class="sub-title">Propostas Aceitas</span>
+            </section>
+        </div>
+        <div class="views-profile shadow">
+            <img src="../../../../../assets/img/dashboard/eye.png" >
+            <section>
+                <span class="title">{{user.views}}</span><br>
+                <span class="sub-title">Views no peril</span>
+            </section>
+        </div>
+    </div>
+
+    <div class="cards cards-client" *ngIf="user.type === 'Cliente'">
+        <div class="gain shadow">
+            <img src="../../../../../assets/img/dashboard/1.png" >
+            <section>
+                <span class="title">{{user.client_spending | currency:'EUR':'symbol'}}</span><br>
+                <span class="sub-title">Seus Gastos</span>
+            </section>
+        </div>
+        <div class="send-proposals shadow">
+            <img src="../../../../../assets/img/dashboard/2-client.png" >
+            <section>
+                <span class="title">{{listJobs.length}}</span><br>
+                <span class="sub-title">Projetos Publicados</span>
+            </section>
+        </div>
+        <div class="accept-proposals shadow">
+            <img src="../../../../../assets/img/dashboard/3-client.png" >
+            <section>
+                <span class="title">{{jobsOnDoingClient.length}}</span><br>
+                <span class="sub-title">Projetos em Andamento</span>
+            </section>
+        </div>
+        <div class="views-profile shadow">
+            <img src="../../../../../assets/img/dashboard/check.png" >
+            <section>
+                <span class="title">{{jobsConcludedClient.length}}</span><br>
+                <span class="sub-title">Projetos Concluídos</span>
+            </section>
+        </div>
+    </div>
+
+    <div class="dash">
+        <div class="row" *ngIf="user">
+            <div class="col-sm-12 col-md-5 col-lg-5" >
+                <div class="resume shadow">
+                    <div class="row">
+                        <div class="col-md-2 no-padding-right">
+                            <img src={{user.getPhoto()}} alt="" class="img-fluid userPhoto">
+                        </div>
+                        <div class="col-md-5">
+                            <span *ngIf="user.type === 'Freelancer'">{{user.premium ? 'Membro Premium' : 'Membro Gratuito'}}</span>
+                            <h2>{{ user.name }} {{user.nick}}</h2>
+                            <ngb-rating [rate]="user.getMediaRating()" [max]="5" [readonly]="true">
+                            </ngb-rating>
+                            <span class="average">{{user.getMediaRating()}}</span>
+                        </div>
+                        <div class="col-md-5">
+                            <button *ngIf="user.isFreela(); else newJob" routerLink="/search/job" class="tf-btn btn-purple">ENCONTRAR JOB</button>
+                            <ng-template #newJob>
+                              <button class="tf-btn btn-purple" routerLink="/job/new">PUBLICAR JOB</button>
+                            </ng-template>
+
+                        </div>
+                        <div class="level-buyed">
+                            <div class="imgs">
+                                <img id="level1" *ngIf="user.quantity_buy_level >= 1" src="../../../../assets/img/icons/buy-level-1.png">
+                                <img id="level2" *ngIf="user.quantity_buy_level >= 2" src="../../../../assets/img/icons/buy-level-2.png">
+                                <img id="level3" *ngIf="user.quantity_buy_level >= 3" src="../../../../assets/img/icons/buy-level-3.png">
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="performance shadow" *ngIf="user.type === 'Freelancer'">
+                                <h2>{{user.freelancer_earning  | currency: 'EUR':'symbol'}}</h2>
+                                <span>Saldo atual</span>
+                            </div>
+                            <div class="performance" *ngIf="user.type === 'Cliente'">
+                                <h2>{{user.client_spending | currency:'EUR':'symbol'}}</h2>
+                                <span>Despesas atuais</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="performance">
+                                <h2>{{jobsAtivos.length}}</h2>
+                                <span>Projetos ativos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="level">
+                    <div class="head">
+                        <div>
+                            <h2>Nível</h2>
+                            <p>{{levelLabel | titlecase}}</p>
+                        </div>
+                        <button class="btn" (click)="showBuyLevelModal()">COMPRAR NÍVEL</button>
+                    </div>
+                    
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': actualLevel}" [aria-valuenow]="actualLevelNumber" [aria-valuemin]="minValueLevel" [aria-valuemax]="maxValueLevel"><b *ngIf="actualLevelNumber >= 5">{{actualLevelNumber}} / {{maxValueLevel}}</b></div>
+                        <b class="pts" *ngIf="actualLevelNumber < 5">{{actualLevelNumber}} / {{maxValueLevel}}</b>
+                    </div>
+                    <p>
+                        Os níveis de experiência são atingidos conforme o número de projetos concluídos.<br>
+                        Aumente seu nível e ganhe mais prestígio na plataforma
+                    </p>
+                </div>
+
+                <div class="skills shadow" *ngIf="user.isFreela()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Minhas Habilidades</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let skill of user.skills">
+                            <span>{{ skill.itemName ? skill.itemName : skill.name }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subscribe" *ngIf="user.type === 'Freelancer' && !user.premium">
+                    <div class="subs-card">
+                        <div class="title">
+                          <img src="../../../../assets/img/icons/crown.png">
+                          <p>Aceda ao plano <b>PREMIUM</b></p>
+                        </div>
+                        <div class="content">
+                          Aceda ao plano PREMIUM para obter o máximo de performance no seu trabalho.<br><br>
+                          Com o plano premium qualquer projeto postado pelo cliente fica aberto para o envio de sua proposta
+                        </div>
+                        <p class="obs">*Plano mensal no valor de 15¢</p>
+                        <div class="actions">
+                          <button class="btn" (click)="buyPlan()">Aceder a Premium</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-7 col-lg-7" >
+                <div class="tenders shadow" *ngIf="user.isFreela();">
+                    <div class="row">
+                        <div class="col-md-12 link-my-jobs" [routerLink]="['/my-jobs']">
+                            <h2 class="text-title">Jobs com propostas</h2>
+                        </div>
+                    </div>
+                    <div class="job" *ngFor="let proposal of proposals">
+                        <app-job-card-proposal 
+                          *ngIf="proposal.job.status !== 'em_andamento' && proposal.job.status !== 'em_disputa'"
+                          title={{proposal.job.title}}
+                          client={{proposal.job.owner.name}}
+                          status={{proposal.job.status}}
+                          proposalId={{proposal.id}}
+                          jobId={{proposal.job.id}}
+                        ></app-job-card-proposal>
+                    </div>
+                   
+                </div>
+
+                <div class="tenders" *ngIf="user.type === 'Cliente'">
+                    <h2 class="text-title link-my-jobs" [routerLink]="['/my-jobs']">Jobs publicados</h2>
+                    <div *ngFor="let job of listJobs; let i = index;">
+                        <app-job-client-card *ngIf="job.status !== 'em_andamento' && job.status !== 'em_disputa'"  [job]="job" [index]="i">
+                        </app-job-client-card>
+                    </div>
+                    
+                </div>
+
+                <div class="actual-jobs">
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <h2 class="text-title link-my-jobs" [routerLink]="['/my-jobs', 'on_going']">Minhas propostas ativas</h2>
+                            
+                            <div *ngIf="user.isFreela()">
+                                <div *ngFor="let job of listJobs; let i = index;">
+                                    <app-job-freela-card *ngIf="job.status === 'em_andamento' || job.status === 'ativo' || job.status === 'em_disputa'" [job]="job" [index]="i">
+                                    </app-job-freela-card>
+                                </div>
+                                
+                            </div>
+
+                            <div *ngIf="user.type === 'Cliente'">
+                                <div *ngFor="let job of listJobs; let i = index;">
+                                    <app-job-client-card *ngIf="job.status === 'em_andamento' || job.status === 'ativo' || job.status === 'em_disputa'" [job]="job" [index]="i">
+                                    </app-job-client-card>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>
+<app-buy-level *ngIf="buyLevelModal"></app-buy-level>
